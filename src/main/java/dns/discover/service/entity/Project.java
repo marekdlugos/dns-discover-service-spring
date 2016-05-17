@@ -20,6 +20,9 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Account> accounts = new ArrayList<Account>();
 
+    @OneToMany(mappedBy = "project")
+    private List<DnsRecord> dnsRecords = new ArrayList<DnsRecord>();
+
     /**
      * Project Constructor
      *
@@ -87,5 +90,13 @@ public class Project {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<DnsRecord> getDnsRecords() {
+        return dnsRecords;
+    }
+
+    public void setDnsRecords(List<DnsRecord> dnsRecords) {
+        this.dnsRecords = dnsRecords;
     }
 }

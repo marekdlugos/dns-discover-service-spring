@@ -1,9 +1,8 @@
 package dns.discover.service.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -29,6 +28,10 @@ public class DnsRecord {
     private Date created_at;
     private Date updated_at;
 
+    @JsonIgnore
+    @ManyToOne
+    private Project project;
+
     /**
      * DNS Record Constructor
      * @param zone          DNS Zone (e.g. sample.com)
@@ -46,7 +49,7 @@ public class DnsRecord {
      * @param created_at    Date and Time when the project was created
      * @param updated_at    Date and Time when the project was updated
      */
-    public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, BigInteger serial, int refresh, int retry, int expire, int minimum) {
+    public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, int refresh, int retry, int expire, int minimum) {
         this.zone = zone;
         this.host = host;
         this.ttl = ttl;
@@ -54,7 +57,7 @@ public class DnsRecord {
         this.mx_priority = mx_priority;
         this.data = data;
         this.resp_person = resp_person;
-        this.serial = serial;
+//        this.serial = serial;
         this.refresh = refresh;
         this.retry = retry;
         this.expire = expire;
@@ -187,5 +190,13 @@ public class DnsRecord {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

@@ -1,8 +1,10 @@
 package dns.discover.service;
 
 import dns.discover.service.entity.Account;
+import dns.discover.service.entity.DnsRecord;
 import dns.discover.service.entity.Project;
 import dns.discover.service.entity.Role;
+import dns.discover.service.repository.DnsRecordRepository;
 import dns.discover.service.repository.ProjectRepository;
 import dns.discover.service.repository.RoleRepository;
 import dns.discover.service.repository.UserRepository;
@@ -25,6 +27,9 @@ public class Application {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    DnsRecordRepository dnsRecordRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -36,12 +41,23 @@ public class Application {
 
         Project google = new Project("Google", "Landing page");
         Project ms = new Project("Microsoft", "page");
+
+        // TODO: Find how to write BigInteger value
+        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 32000, 12000, 29001, 21382);
+        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 32000, 12000, 29001, 21382);
+
+        google.setDnsRecords(Arrays.asList(adastra, finance));
+        adastra.setProject(google);
+        finance.setProject(google);
+
         google.setAccounts(Arrays.asList(marek, martin));
         marek.setProject(google);
         martin.setProject(google);
 
         projectRepository.save(google);
         projectRepository.save(ms);
+        dnsRecordRepository.save(adastra);
+        dnsRecordRepository.save(finance);
         userRepository.save(marek);
         userRepository.save(martin);
 

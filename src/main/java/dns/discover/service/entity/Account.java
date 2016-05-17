@@ -104,7 +104,6 @@ public class Account {
         this.created_at = created_at;
     }
 
-
     public Project getProject() {
         return project;
     }
@@ -112,4 +111,5 @@ public class Account {
     public void setProject(Project project) {
         this.project = project;
     }
+
 }
