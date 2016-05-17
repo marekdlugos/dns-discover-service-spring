@@ -1,9 +1,7 @@
-package entity;
+package sit.fel.cvut.entity;
 
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 
 @Entity

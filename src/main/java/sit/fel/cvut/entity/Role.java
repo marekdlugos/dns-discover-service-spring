@@ -1,7 +1,5 @@
-package entity;
+package sit.fel.cvut.entity;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 
 @Entity

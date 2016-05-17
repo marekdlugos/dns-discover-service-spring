@@ -1,10 +1,8 @@
-package entity;
+package sit.fel.cvut.entity;
 
 import dns.discover.service.model.Project;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 
 @Entity
