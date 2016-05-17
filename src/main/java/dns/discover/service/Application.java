@@ -2,7 +2,9 @@ package dns.discover.service;
 
 import dns.discover.service.entity.Account;
 import dns.discover.service.entity.Project;
+import dns.discover.service.entity.Role;
 import dns.discover.service.repository.ProjectRepository;
+import dns.discover.service.repository.RoleRepository;
 import dns.discover.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +21,9 @@ public class Application {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -39,6 +44,16 @@ public class Application {
         projectRepository.save(ms);
         userRepository.save(marek);
         userRepository.save(martin);
+
+        Role watcher = new Role("Watcher", "Can view only the records related to project he is assigned.");
+        Role editor = new Role("Editor", "Can view, edit and delete records related to assigned project.");
+        Role manager = new Role("Manager", "Can view, edit and delete records related to project. Add and delete another users (watchers and editors) related to project. Create and delete projects.");
+        Role admin = new Role("Admin", "Can view, edit and delete all records in app. Add and delete another users (watchers, editors and managers) across whole app. Create and delete all projects.");
+        roleRepository.save(watcher);
+        roleRepository.save(editor);
+        roleRepository.save(manager);
+        roleRepository.save(admin);
+
 
     }
 

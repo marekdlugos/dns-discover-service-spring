@@ -64,6 +64,7 @@ public class DnsRecord {
     }
 
     /**
+     * DNS Record Constructor for JPA only
      */
     public DnsRecord() {
     }
