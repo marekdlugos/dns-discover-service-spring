@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import dns.discover.service.entity.Account;
 import dns.discover.service.service.UserService;
-
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -18,23 +17,19 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @RequestMapping(value = "/user/{userId}")
+    @RequestMapping(value = "/users/{userId}")
     public Account getUser(@PathVariable Long userId){
         return userService.getUser(userId);
     }
 
-    @RequestMapping(value = "/user/delete/{userId}", method = DELETE)
+    @RequestMapping(value = "/users", method = POST)
+    public Account createUser(@RequestBody Account account) {
+        return userService.createUser(account);
+    }
+
+    @RequestMapping(value = "/users/{userId}", method = DELETE)
     public void deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);
     }
 
-//    @RequestMapping(value = "/user/create", method = POST)
-//    public Account createUser(String name, String email, String password, String salt) {
-//        return userService.createUser(name, email, password, salt);
-//    }
-
-    @RequestMapping(value = "/user/create", method = POST)
-    public Account createUser(@RequestBody Account account) {
-        return userService.createUser(account);
-    }
 }

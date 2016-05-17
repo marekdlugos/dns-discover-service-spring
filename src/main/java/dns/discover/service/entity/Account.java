@@ -1,12 +1,12 @@
 package dns.discover.service.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "users")
 public class Account {
+
+    // TODO: Created at and Updated at
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,6 @@ public class Account {
     @ManyToOne
     private Project project;
 
-    // Constructor
     public Account(String name, String email, String password, String salt) {
         this.name = name;
         this.email = email;
@@ -33,9 +32,6 @@ public class Account {
 //        this.updated_at = updated_at;
     }
 
-    /**
-     * Account Constructor for JPA only
-     */
     public Account() {
     }
 

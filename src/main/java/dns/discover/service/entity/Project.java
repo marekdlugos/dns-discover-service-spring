@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Table(name = "projects")
 public class Project {
+
+    // TODO: Created at and Updated at
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

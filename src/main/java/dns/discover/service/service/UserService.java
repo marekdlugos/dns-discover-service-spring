@@ -28,18 +28,6 @@ public class UserService {
     }
 
     @Transactional
-    public Account createUser(String name, String email, String password, String salt){
-        Account account = new Account();
-
-        account.setName(name);
-        account.setEmail(email);
-        account.setPassword(password);
-        account.setSalt(salt);
-
-        return userRepository.save(account);
-    }
-
-    @Transactional
     public Account createUser(Account account){
         return userRepository.save(account);
     }
