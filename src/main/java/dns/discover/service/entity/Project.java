@@ -1,13 +1,12 @@
 package dns.discover.service.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Project {
-
-    // TODO: Created at and Updated at
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +14,8 @@ public class Project {
 
     private String name;
     private String description;
-//    private Date created_at;
-//    private Date updated_at;
+    private Date created_at;
+    private Date updated_at;
 
     @OneToMany(mappedBy = "project")
     private List<Account> accounts = new ArrayList<Account>();
@@ -32,8 +31,8 @@ public class Project {
     public Project(String name, String description) {
         this.name = name;
         this.description = description;
-//        this.created_at = created_at;
-//        this.updated_at = updated_at;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
     /**
@@ -66,21 +65,21 @@ public class Project {
         this.description = description;
     }
 
-//    public Date getCreated_at() {
-//        return created_at;
-//    }
-//
-//    public void setCreated_at(Date created_at) {
-//        this.created_at = created_at;
-//    }
-//
-//    public Date getUpdated_at() {
-//        return updated_at;
-//    }
-//
-//    public void setUpdated_at(Date updated_at) {
-//        this.updated_at = updated_at;
-//    }
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
 
     public List<Account> getAccounts() {
         return accounts;
