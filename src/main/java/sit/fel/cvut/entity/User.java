@@ -1,46 +1,27 @@
 package sit.fel.cvut.entity;
 
-import dns.discover.service.model.Project;
-
-import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relationships
-    //    @OneToMany(mappedBy = "user")
-    //    private Set<Project> projects = new HashSet<>();
-    //
-    //    public Set<Project> getProjects() {
-    //        return projects;
-    //    }
-
     private String name;
     private String email;
     private String password;
     private String salt;
-    private Date created_at;
-    private Date updated_at;
 
     // Constructor
-    public User(String name, String email, String password, String salt, String profile_pic, Date created_at, Date updated_at) {
+    public User(String name, String email, String password, String salt) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.salt = salt;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
-    /**
-     * User Constructor for JPA only
-     */
     public User() {
     }
 
@@ -69,19 +50,19 @@ public class User {
         this.email = email;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
