@@ -1,5 +1,7 @@
 package dns.discover.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="project_id")
     private Long id;
 
     private String name;
@@ -17,8 +20,10 @@ public class Project {
     private Date created_at;
     private Date updated_at;
 
-    @OneToMany(mappedBy = "project")
-    private List<Account> accounts = new ArrayList<Account>();
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="account_project", joinColumns=@JoinColumn(name="project_id"), inverseJoinColumns=@JoinColumn(name="account_id"))
+    @JsonIgnore
+    private List<Account> accounts;
 
     @OneToMany(mappedBy = "project")
     private List<DnsRecord> dnsRecords = new ArrayList<DnsRecord>();

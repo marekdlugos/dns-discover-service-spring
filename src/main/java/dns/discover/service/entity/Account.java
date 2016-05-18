@@ -3,12 +3,15 @@ package dns.discover.service.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="account_id")
     private Long id;
 
     private String name;
@@ -18,9 +21,8 @@ public class Account {
     private Date created_at;
     private Date updated_at;
 
-    @JsonIgnore
-    @ManyToOne
-    private Project project;
+    @ManyToMany(cascade=CascadeType.ALL, mappedBy="accounts")
+    private List<Project> projects = new ArrayList<Project>();
 
     /**
      * Account Constructor
@@ -104,12 +106,11 @@ public class Account {
         this.created_at = created_at;
     }
 
-    public Project getProject() {
-        return project;
+    public List<Project> getProjects() {
+        return projects;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
-
 }

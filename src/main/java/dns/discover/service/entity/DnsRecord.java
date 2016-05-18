@@ -3,7 +3,6 @@ package dns.discover.service.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -20,7 +19,7 @@ public class DnsRecord {
     private int mx_priority;
     private String data;
     private String resp_person;
-    private BigInteger serial;
+    private double serial;
     private int refresh;
     private int retry;
     private int expire;
@@ -49,7 +48,7 @@ public class DnsRecord {
      * @param created_at    Date and Time when the project was created
      * @param updated_at    Date and Time when the project was updated
      */
-    public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, int refresh, int retry, int expire, int minimum) {
+    public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, double serial, int refresh, int retry, int expire, int minimum) {
         this.zone = zone;
         this.host = host;
         this.ttl = ttl;
@@ -57,7 +56,7 @@ public class DnsRecord {
         this.mx_priority = mx_priority;
         this.data = data;
         this.resp_person = resp_person;
-//        this.serial = serial;
+        this.serial = serial;
         this.refresh = refresh;
         this.retry = retry;
         this.expire = expire;
@@ -136,11 +135,11 @@ public class DnsRecord {
         this.resp_person = resp_person;
     }
 
-    public BigInteger getSerial() {
+    public double getSerial() {
         return serial;
     }
 
-    public void setSerial(BigInteger serial) {
+    public void setSerial(double serial) {
         this.serial = serial;
     }
 

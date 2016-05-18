@@ -42,17 +42,14 @@ public class Application {
         Project google = new Project("Google", "Landing page");
         Project ms = new Project("Microsoft", "page");
 
-        // TODO: Find how to write BigInteger value
-        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 32000, 12000, 29001, 21382);
-        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 32000, 12000, 29001, 21382);
-
+        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382);
+        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382);
         google.setDnsRecords(Arrays.asList(adastra, finance));
         adastra.setProject(google);
         finance.setProject(google);
 
         google.setAccounts(Arrays.asList(marek, martin));
-        marek.setProject(google);
-        martin.setProject(google);
+        marek.setProjects(Arrays.asList(google));
 
         projectRepository.save(google);
         projectRepository.save(ms);
