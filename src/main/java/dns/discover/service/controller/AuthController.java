@@ -55,13 +55,13 @@ public class AuthController {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-                    .httpBasic()
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/user_ui/**", "/admin_ui/**", "/").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                    .csrf().disable();
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/js/**", "/css/**", "/fonts/**", "/").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable();
         }
 
 
