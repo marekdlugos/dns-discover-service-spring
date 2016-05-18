@@ -21,8 +21,9 @@ public class Account {
     private Date created_at;
     private Date updated_at;
 
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="accounts")
-    private List<Project> projects = new ArrayList<Project>();
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private List<Participation> participations = new ArrayList<Participation>();
 
     /**
      * Account Constructor
@@ -106,11 +107,11 @@ public class Account {
         this.created_at = created_at;
     }
 
-    public List<Project> getProjects() {
-        return projects;
+    public List<Participation> getParticipations() {
+        return participations;
     }
 
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
     }
 }

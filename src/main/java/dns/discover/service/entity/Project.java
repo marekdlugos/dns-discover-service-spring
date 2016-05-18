@@ -20,10 +20,9 @@ public class Project {
     private Date created_at;
     private Date updated_at;
 
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="account_project", joinColumns=@JoinColumn(name="project_id"), inverseJoinColumns=@JoinColumn(name="account_id"))
+    @OneToMany(mappedBy = "project")
     @JsonIgnore
-    private List<Account> accounts;
+    private List<Participation> participations = new ArrayList<Participation>();
 
     @OneToMany(mappedBy = "project")
     private List<DnsRecord> dnsRecords = new ArrayList<DnsRecord>();
@@ -89,12 +88,12 @@ public class Project {
         this.updated_at = updated_at;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public List<Participation> getParticipations() {
+        return participations;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
     }
 
     public List<DnsRecord> getDnsRecords() {

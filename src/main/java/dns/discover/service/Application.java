@@ -1,18 +1,13 @@
 package dns.discover.service;
 
-import dns.discover.service.entity.Account;
-import dns.discover.service.entity.DnsRecord;
-import dns.discover.service.entity.Project;
-import dns.discover.service.entity.Role;
-import dns.discover.service.repository.DnsRecordRepository;
-import dns.discover.service.repository.ProjectRepository;
-import dns.discover.service.repository.RoleRepository;
-import dns.discover.service.repository.UserRepository;
+import dns.discover.service.entity.*;
+import dns.discover.service.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -29,6 +24,9 @@ public class Application {
 
     @Autowired
     DnsRecordRepository dnsRecordRepository;
+
+    @Autowired
+    ParticipationRepository participationRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -48,16 +46,6 @@ public class Application {
         adastra.setProject(google);
         finance.setProject(google);
 
-        google.setAccounts(Arrays.asList(marek, martin));
-        marek.setProjects(Arrays.asList(google));
-
-        projectRepository.save(google);
-        projectRepository.save(ms);
-        dnsRecordRepository.save(adastra);
-        dnsRecordRepository.save(finance);
-        userRepository.save(marek);
-        userRepository.save(martin);
-
         Role watcher = new Role("Watcher", "Can view only the records related to project he is assigned.");
         Role editor = new Role("Editor", "Can view, edit and delete records related to assigned project.");
         Role manager = new Role("Manager", "Can view, edit and delete records related to project. Add and delete another users (watchers and editors) related to project. Create and delete projects.");
@@ -67,7 +55,15 @@ public class Application {
         roleRepository.save(manager);
         roleRepository.save(admin);
 
+        projectRepository.save(google);
+        projectRepository.save(ms);
+        dnsRecordRepository.save(adastra);
+        dnsRecordRepository.save(finance);
+        userRepository.save(marek);
+        userRepository.save(martin);
 
+        Participation marek_google = new Participation(marek, google);
+        participationRepository.save(marek_google);
     }
 
 }
