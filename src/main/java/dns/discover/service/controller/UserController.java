@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import dns.discover.service.entity.Account;
 import dns.discover.service.service.UserService;
+
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -13,6 +16,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/users")
+    @RolesAllowed("ADMIN")
     public Iterable<Account> getUsers(){
         return userService.getUsers();
     }
