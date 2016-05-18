@@ -1,6 +1,7 @@
 package dns.discover.service.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -17,14 +18,13 @@ public class Project {
 
     private String name;
     private String description;
-    private Date created_at;
-    private Date updated_at;
 
     @OneToMany(mappedBy = "project")
     @JsonIgnore
     private List<Participation> participations = new ArrayList<Participation>();
 
     @OneToMany(mappedBy = "project")
+    @JsonManagedReference
     private List<DnsRecord> dnsRecords = new ArrayList<DnsRecord>();
 
     /**
@@ -32,14 +32,10 @@ public class Project {
      *
      * @param name        Name of the project
      * @param description Description of the project
-     * @param created_at  Date and Time when the project was created
-     * @param updated_at  Date and Time when the project was updated
      */
     public Project(String name, String description) {
         this.name = name;
         this.description = description;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     /**
@@ -70,22 +66,6 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
     }
 
     public List<Participation> getParticipations() {

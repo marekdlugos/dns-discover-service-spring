@@ -34,17 +34,19 @@ public class Application {
 
     @PostConstruct
     private void load() {
-        Account marek = new Account("Marek Dlugos", "marek@rocketbuilt.tech", "tralala", "abc");
-        Account martin = new Account("Martin Tlachac", "martin@tlachac.cz", "tralala", "abc");
+        Account marek = new Account("Marek Dlugos", "marek@rocketbuilt.tech", "tralala");
+        Account martin = new Account("Martin Tlachac", "martin@tlachac.cz", "tralala");
 
         Project google = new Project("Google", "Landing page");
         Project ms = new Project("Microsoft", "page");
+        projectRepository.save(google);
+        projectRepository.save(ms);
 
-        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382);
-        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382);
+        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382, google);
+        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382, ms);
         google.setDnsRecords(Arrays.asList(adastra, finance));
-        adastra.setProject(google);
-        finance.setProject(google);
+        dnsRecordRepository.save(adastra);
+        dnsRecordRepository.save(finance);
 
         Role watcher = new Role("Watcher", "Can view only the records related to project he is assigned.");
         Role editor = new Role("Editor", "Can view, edit and delete records related to assigned project.");
@@ -55,10 +57,8 @@ public class Application {
         roleRepository.save(manager);
         roleRepository.save(admin);
 
-        projectRepository.save(google);
-        projectRepository.save(ms);
-        dnsRecordRepository.save(adastra);
-        dnsRecordRepository.save(finance);
+
+
         userRepository.save(marek);
         userRepository.save(martin);
 

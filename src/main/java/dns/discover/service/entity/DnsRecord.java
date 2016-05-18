@@ -1,6 +1,7 @@
 package dns.discover.service.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,11 +25,9 @@ public class DnsRecord {
     private int retry;
     private int expire;
     private int minimum;
-    private Date created_at;
-    private Date updated_at;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonBackReference
     private Project project;
 
     /**
@@ -45,10 +44,8 @@ public class DnsRecord {
      * @param retry         retry
      * @param expire        expire
      * @param minimum       minimum (e.g. 86 400)
-     * @param created_at    Date and Time when the project was created
-     * @param updated_at    Date and Time when the project was updated
      */
-    public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, double serial, int refresh, int retry, int expire, int minimum) {
+    public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, double serial, int refresh, int retry, int expire, int minimum, Project project) {
         this.zone = zone;
         this.host = host;
         this.ttl = ttl;
@@ -61,8 +58,7 @@ public class DnsRecord {
         this.retry = retry;
         this.expire = expire;
         this.minimum = minimum;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.project = project;
     }
 
     /**
@@ -173,22 +169,6 @@ public class DnsRecord {
 
     public void setMinimum(int minimum) {
         this.minimum = minimum;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
     }
 
     public Project getProject() {
