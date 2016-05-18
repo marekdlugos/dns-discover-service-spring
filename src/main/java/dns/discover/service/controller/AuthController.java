@@ -15,23 +15,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 @Controller
 public class AuthController {
 
-    private String defaultPath = "forward:/user_ui";
+    private String defaultPath = "forward:/views/login.html";
 
     @RequestMapping("/")
     public String defaultPath() {
         return defaultPath;
     }
 
-    @RequestMapping("/user")
+    @RequestMapping("/logged")
     @ResponseBody
-    public Map<String, Object> user(Principal user) {
-        return Collections.<String, Object>singletonMap("name", user.getName());
+    public Map<String, Object> login(Principal user) {
+        Map map = new HashMap();
+        map.put("name", user.getName());
+        map.put("role", "watcher");
+
+        return map;
     }
 
     @Configuration
