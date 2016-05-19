@@ -1,7 +1,7 @@
 package dns.discover.service.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -24,7 +24,6 @@ public class Project {
     private List<Participation> participations = new ArrayList<Participation>();
 
     @OneToMany(mappedBy = "project")
-    @JsonManagedReference
     private List<DnsRecord> dnsRecords = new ArrayList<DnsRecord>();
 
     /**
