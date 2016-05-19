@@ -48,7 +48,7 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="UserController">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
@@ -77,49 +77,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
+                            <tr ng-repeat="user in users">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>*</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>amet</td>
-                                <td>consectetur</td>
-                                <td>adipiscing</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Integer</td>
-                                <td>nec</td>
-                                <td>odio</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>libero</td>
-                                <td>Sed</td>
-                                <td>cursus</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>dapibus</td>
-                                <td>diam</td>
-                                <td>Sed</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
+                                    <button class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span><a href="#"> Edit</a></button>
                                 </td>
                             </tr>
                         </tbody>

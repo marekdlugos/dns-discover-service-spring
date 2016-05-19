@@ -48,7 +48,7 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="DnsRecordsController">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
@@ -64,29 +64,29 @@
                 <!--</ul>-->
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">New Record</h1>
+                <h1 class="page-header">Create New Record:</h1>
                 <form action="#">
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="zone">Zone</label>
-                                <input type="text" name="zone" id="zone" class="form-control" placeholder="sample.com" required>
+                                <input type="text" name="zone" id="zone" class="form-control" ng-model="dnsrecords.zone" placeholder="sample.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="host">Host</label>
-                                <select class="form-control" id="host" name="host">
+                                <select class="form-control" id="host" name="host" ng-model="dnsrecords.host" >
                                     <option>@</option>
                                     <option>www</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="ttl">TTL</label>
-                                <input type="number" name="ttl" id="ttl" class="form-control" value="86400" required>
+                                <input type="number" name="ttl" id="ttl" class="form-control" value="86400" ng-model="dnsrecords.ttl" required>
                             </div>
                             <div class="form-group">
-                                <label for="zone">Type</label>
-                                <select class="form-control" id="type" name="type">
+                                <label for="type">Type</label>
+                                <select class="form-control" id="type" name="type" ng-model="dnsrecords.type" >
                                     <option>SOA</option>
                                     <option>NS</option>
                                     <option>MX</option>
@@ -95,43 +95,44 @@
                             </div>
                             <div class="form-group">
                                 <label for="mx_priority">MX Priority</label>
-                                <input type="number" name="mx_priority" id="mx_priority" class="form-control" placeholder="NULL" required>
+                                <input type="number" name="mx_priority" id="mx_priority" class="form-control" placeholder="NULL" ng-model="dnsrecords.mx_priority" required>
                             </div>
                             <div class="form-group">
                                 <label for="data">Data</label>
-                                <input type="text" name="data" id="data" class="form-control" placeholder="ns1.ns.com." required>
+                                <input type="text" name="data" id="data" class="form-control" placeholder="ns1.ns.com." ng-model="dnsrecords.data" required>
                             </div>
                             <div class="form-group">
                                 <label for="resp_person">Responsible person</label>
-                                <input type="text" name="resp_person" id="resp_person" class="form-control" placeholder="hostmaster.ns.com." required>
+                                <input type="text" name="resp_person" id="resp_person" class="form-control" placeholder="hostmaster.ns.com." ng-model="dnsrecords.resp_person" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="serial">Serial</label>
-                                <input type="number" name="serial" id="serial" class="form-control" placeholder="2007080601" required>
+                                <input type="number" name="serial" id="serial" class="form-control" placeholder="2007080601" ng-model="dnsrecords.serial" required>
                             </div>
                             <div class="form-group">
                                 <label for="refresh">Refresh</label>
-                                <input type="number" name="refresh" id="refresh" class="form-control" placeholder="10800" required>
+                                <input type="number" name="refresh" id="refresh" class="form-control" placeholder="10800"  ng-model="dnsrecords.refresh" required>
                             </div>
                             <div class="form-group">
                                 <label for="retry">Retry</label>
-                                <input type="number" name="retry" id="retry" class="form-control" placeholder="7200" required>
+                                <input type="number" name="retry" id="retry" class="form-control" placeholder="7200"  ng-model="dnsrecords.retry" required>
                             </div>
                             <div class="form-group">
                                 <label for="expire">Expire</label>
-                                <input type="number" name="expire" id="expire" class="form-control" placeholder="604800" required>
+                                <input type="number" name="expire" id="expire" class="form-control" placeholder="604800" ng-model="dnsrecords.expire" required>
                             </div>
                             <div class="form-group">
                                 <label for="minimum">Minimum</label>
-                                <input type="number" name="minimum" id="minimum" class="form-control" placeholder="86400" required>
+                                <input type="number" name="minimum" id="minimum" class="form-control" placeholder="86400"  ng-model="dnsrecords.minimum" required>
                             </div>
                             <div class="form-group">
                                 <label for="project">Project</label>
-                                <select class="form-control" id="project" name="project">
-                                    <option>hostmeinca.com</option>
-                                    <option>google.com</option>
+                                <select class="form-control" id="project" name="project" ng-model="dnsrecords.project">
+                                    <div ng-repeat="project in projects">
+                                        <option>project.name</option>
+                                    </div>
                                 </select>
                             </div>
                         </div>
@@ -139,7 +140,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="#" class="btn btn-success pull-right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Create Record</a>
+                            <a href="#" class="btn btn-success pull-right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true" ng-click="newDnsRecord()"></span> Create record</a>
                         </div>
                     </div>
 

@@ -19,7 +19,7 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "/users")
+    @RequestMapping(value = "/users", method = GET)
     @RolesAllowed("ADMIN")
     public Iterable<Account> getUsers(){
         log.debug("GET Users");

@@ -16,7 +16,7 @@ public class DnsRecordController {
     @Autowired
     DnsRecordService dnsRecordService;
 
-    @RequestMapping(value = "/dnsrecords")
+    @RequestMapping(value = "/dnsrecords", method = GET)
     public Iterable<DnsRecord> getDnsRecords(){
         return dnsRecordService.getDnsRecords();
     }

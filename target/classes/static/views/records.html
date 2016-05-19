@@ -64,7 +64,7 @@
                 <!--</ul>-->
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Records <a href="records-new.html" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new Record</a></h1>
+                <h1 class="page-header">Records <a href="projects-new.html" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new Record</a></h1>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -85,7 +85,7 @@
                                 <td>{{ dnsrecord.resp_person }}</td>
                                 <td><a href="#">{{ dnsrecord.project }}</a></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
+                                    <button type="button" class="btn btn-primary btn-sm" ng-click="editRecord(dnsrecord.id)"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> <a href="#"> Edit</a></button>
                                 </td>
                             </tr>
                         </tbody>

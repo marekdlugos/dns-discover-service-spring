@@ -48,7 +48,7 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="ProjectController">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
@@ -72,14 +72,14 @@
                             <h2>General</h2>
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="sample.com" required>
+                                <input type="text" name="name" id="name" class="form-control"  ng-model="name" placeholder="sample.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <input type="text" name="description" id="description" class="form-control" placeholder="Description">
+                                <input type="text" name="description" id="description" class="form-control" ng-model="description" placeholder="Description">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" ng-controller="UserController">
                             <h2>Add users to project</h2>
                             <div class="form-group">
                                 <div class="panel panel-default">
@@ -94,51 +94,11 @@
                                     </table>
                                     <div style="overflow-y:auto; height: 170px;">
                                         <table class="table">
-                                            <tbody>
+                                            <tbody ng-repeat="user in users">
                                                 <tr>
                                                     <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox2" value="option1"></td>
-                                                    <td>Jakub Lecbych</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox3" value="option1"></td>
-                                                    <td>Jiri Vokrinek</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox4" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox5" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox6" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox7" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox8" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" id="inlineCheckbox9" value="option1"></td>
-                                                    <td>Marek Dlugos</td>
-                                                    <td>marek@rocketbuilt.tech</td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.email }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -160,9 +120,12 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="checkbox" id="inlineCheckbox3" value="option1"></td>
+                                                <td>
+                                                    <input type="checkbox" id="inlineCheckbox3" value="option1"></td>
                                                 </td>
-                                                <td>marek@rocketbuilt.tech</td>
+                                                <td>
+                                                    marek@rocketbuilt.tech
+                                                </td>
                                                 <td>
                                                     <select class="form-control" id="role1" name="role">
                                                     </select>
@@ -177,7 +140,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="#" class="btn btn-success pull-right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Create Project</a>
+                            <a href="#" class="btn btn-success pull-right" ng-click="newProject()"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Create Project</a>
                         </div>
                     </div>
                 </form>
