@@ -18,7 +18,7 @@ dnsds.controller('ProjectController', ['$scope', '$http', function($scope, $http
 
     $scope.newProject = function(){
 
-        var data = angular.copy{$scope.name, $scope.description};
+        var data = angular.copy($scope.name, $scope.description);
 
         $http.post(dnsdsUrl + '/projects', data)
             .success(function(data, status, headers, config) {
@@ -52,7 +52,7 @@ dnsds.controller('UserController', ['$scope', '$http', function($scope, $http) {
 
     $scope.newUser = function(){
 
-        var data = angular.copy{$scope.name, $scope.email, $scope.passw1};
+        var data = angular.copy($scope.name, $scope.email, $scope.passw1);
 
         $http.post(dnsdsUrl + '/users', data)
             .success(function(data, status, headers, config) {
@@ -108,7 +108,7 @@ dnsds.controller('DnsRecordsController', ['$scope', '$http', function($scope, $h
 
     $scope.newDnsRecord = function(){
 
-        var data = angular.copy{$scope.dnsrecords};
+        var data = angular.copy($scope.dnsrecords);
 
         $http.post(dnsdsUrl + '/dnsrecords', data)
             .success(function(data, status, headers, config) {
