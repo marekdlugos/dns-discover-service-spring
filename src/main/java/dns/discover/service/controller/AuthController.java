@@ -1,5 +1,8 @@
 //package dns.discover.service.controller;
 //
+//import dns.discover.service.entity.Account;
+//import dns.discover.service.repository.UserRepository;
+//import dns.discover.service.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.boot.SpringApplication;
@@ -9,6 +12,10 @@
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,12 +51,19 @@
 //    protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //
 //        @Autowired
+//        UserService userService;
+//
+//        @Autowired
 //        public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
 //
-//            auth.inMemoryAuthentication()
-//                    .withUser("user").password("password").roles("USER")
-//                    .and()
-//                    .withUser("admin").password("password").roles("ADMIN");
+//            auth.userDetailsService(new UserDetailsService() {
+//                @Override
+//                public UserDetails loadUserById(Long id) throws UsernameNotFoundException {
+//                    Account user = userService.getUser(id);
+//                    return (UserDetails)user;
+//                    // return convert account to UserDetails;
+//                }
+//            }).passwordEncoder(new BCryptPasswordEncoder());
 //        }
 //
 //        @Override

@@ -33,7 +33,6 @@ public class Account {
      * @param name        Name for current account
      * @param email       Email address of current account
      * @param password    Password for current account
-     * @param salt        Salt for current account
      */
     public Account(String name, String email, String password) {
         this.name = name;

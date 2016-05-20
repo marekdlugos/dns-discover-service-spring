@@ -28,8 +28,8 @@ public class DnsRecordService {
     }
 
     @Transactional
-    public DnsRecord createDnsRecord(DnsRecord dnsRecordId){
-        return dnsRecordRepository.save(dnsRecordId);
+    public DnsRecord createDnsRecord(DnsRecord dnsRecord){
+        return dnsRecordRepository.save(dnsRecord);
     }
 
     @Transactional
