@@ -16,12 +16,22 @@ public class DnsRecordController {
     @Autowired
     DnsRecordService dnsRecordService;
 
+    /**
+     * DNS Records
+     *
+     * @return Return all DNS records
+     */
     @RequestMapping(value = "/dnsrecords", method = GET)
     public Iterable<DnsRecord> getDnsRecords(){
         return dnsRecordService.getDnsRecords();
     }
 
-    @RequestMapping(value = "/dnsrecords/{dnsRecordId}")
+    /**
+     * DNS Record
+     *
+     * @return Return DNS Record with specific dnsRecordId
+     */
+    @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = GET)
     public DnsRecord getDnsRecord(@PathVariable Long dnsRecordId) {
         return dnsRecordService.getDnsRecord(dnsRecordId);
     }
@@ -29,6 +39,11 @@ public class DnsRecordController {
     @RequestMapping(value = "/dnsrecords", method = POST)
     public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord) {
         return dnsRecordService.createDnsRecord(dnsRecord);
+    }
+
+    @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = PUT)
+    public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord) {
+        return dnsRecordService.editDnsRecord(dnsRecordId, dnsRecord);
     }
 
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = DELETE)

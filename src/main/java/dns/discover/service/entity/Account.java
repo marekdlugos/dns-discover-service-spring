@@ -1,6 +1,10 @@
 package dns.discover.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -19,7 +23,8 @@ public class Account {
     private String password;
 
     @OneToMany(mappedBy = "account")
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Participation> participations = new ArrayList<Participation>();
 
     /**

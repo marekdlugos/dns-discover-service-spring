@@ -32,4 +32,10 @@ public class DnsRecordService {
         return dnsRecordRepository.save(dnsRecordId);
     }
 
+    @Transactional
+    public DnsRecord editDnsRecord(Long dnsRecordId, DnsRecord dnsRecord){
+        dnsRecord.setId(dnsRecordId);
+        return dnsRecordRepository.save(dnsRecord);
+    }
+
 }

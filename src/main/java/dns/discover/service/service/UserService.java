@@ -32,4 +32,15 @@ public class UserService {
         return userRepository.save(account);
     }
 
+    @Transactional
+    public Account editUser(Account account){
+        return userRepository.save(account);
+    }
+
+    @Transactional
+    public Account editUser(Long userId, Account user){
+        user.setId(userId);
+        return userRepository.save(user);
+    }
+
 }

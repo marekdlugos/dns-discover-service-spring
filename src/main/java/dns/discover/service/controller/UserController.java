@@ -36,6 +36,11 @@ public class UserController {
         return userService.createUser(account);
     }
 
+    @RequestMapping(value = "/users/{userId}", method = PUT)
+    public Account editAccount(@PathVariable Long userId, @RequestBody Account account) {
+        return userService.editUser(userId, account);
+    }
+
     @RequestMapping(value = "/users/{userId}", method = DELETE)
     public void deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);

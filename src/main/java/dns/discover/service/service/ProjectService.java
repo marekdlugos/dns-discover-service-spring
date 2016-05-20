@@ -32,4 +32,10 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
+    @Transactional
+    public Project editProject(Long projectId, Project project){
+        project.setId(projectId);
+        return projectRepository.save(project);
+    }
+
 }
