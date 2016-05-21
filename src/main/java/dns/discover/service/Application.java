@@ -2,9 +2,12 @@ package dns.discover.service;
 
 import dns.discover.service.entity.*;
 import dns.discover.service.repository.*;
+import dns.discover.service.thread.PrintThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -29,7 +32,32 @@ public class Application {
     ParticipationRepository participationRepository;
 
     public static void main(String[] args) {
+
         SpringApplication.run(Application.class, args);
+
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(PrintThread.class);
+
+        PrintThread printThread1 = (PrintThread) ctx.getBean("printThread");
+        printThread1.setName("Thread 1");
+
+        PrintThread printThread2 = (PrintThread) ctx.getBean("printThread");
+        printThread2.setName("Thread 2");
+
+        PrintThread printThread3 = (PrintThread) ctx.getBean("printThread");
+        printThread3.setName("Thread 3");
+
+        PrintThread printThread4 = (PrintThread) ctx.getBean("printThread");
+        printThread4.setName("Thread 4");
+
+        PrintThread printThread5 = (PrintThread) ctx.getBean("printThread");
+        printThread5.setName("Thread 5");
+
+        printThread1.start();
+        printThread2.start();
+        printThread3.start();
+        printThread4.start();
+        printThread5.start();
+
     }
 
     @PostConstruct
@@ -57,13 +85,12 @@ public class Application {
         roleRepository.save(manager);
         roleRepository.save(admin);
 
-
-
         userRepository.save(marek);
         userRepository.save(martin);
 
         Participation marek_google = new Participation(marek, google);
         participationRepository.save(marek_google);
+
     }
 
 }
