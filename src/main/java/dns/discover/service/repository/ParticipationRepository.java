@@ -4,7 +4,7 @@ import dns.discover.service.entity.Participation;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
- * Account <-> Project relationship Repository
+ * Account and Project relationship Repository
  */
 public interface ParticipationRepository extends PagingAndSortingRepository<Participation, Long> {
 

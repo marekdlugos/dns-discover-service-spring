@@ -27,9 +27,10 @@ public class DnsRecordController {
     }
 
     /**
-     * GET specific DNS Record
+     * GET a specific DNS Record
      *
-     * @return Return DNS Record with specific dnsRecordId
+     * @param dnsRecordId   Identification of DNS Record
+     * @return              Return specific DNS Record
      */
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = GET)
     public DnsRecord getDnsRecord(@PathVariable Long dnsRecordId) {

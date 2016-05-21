@@ -45,6 +45,7 @@ public class DnsRecord {
      * @param retry         retry
      * @param expire        expire
      * @param minimum       minimum (e.g. 86 400)
+     * @param project       project
      */
     public DnsRecord(String zone, String host, int ttl, String type, int mx_priority, String data, String resp_person, double serial, int refresh, int retry, int expire, int minimum, Project project) {
         this.zone = zone;

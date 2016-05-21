@@ -23,7 +23,7 @@ public class Participation {
     private List<Role> roles;
 
     /**
-     * Account <-> Project relationship constructor
+     * Account and Project relationship constructor
      *
      * @param account    Account identification
      * @param project    Project identification
@@ -34,7 +34,7 @@ public class Participation {
     }
 
     /**
-     * Account <-> Project relationship Constructor for JPA only
+     * Account and Project relationship Constructor for JPA only
      */
     public Participation() {
     }
