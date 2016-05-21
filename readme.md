@@ -1,10 +1,10 @@
-# :eyeglasses: DNS Discover Service 
+# DNS Discover Service 
 
 ## :book: Overview 
 
 DNS Discover Service is application for standard [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) server called [BIND](https://en.wikipedia.org/wiki/BIND) enabling dynamically loadable [Zone files](https://en.wikipedia.org/wiki/Zone_file) with Project and User management on the top of that. :tada:
 
-The app is written in Java, using [Spring Framework](http://spring.io/) on backend connected with PostgreSQL database. Following REST API fundamentals for easy extension the backend communicate on request/response base with frontend written in [Angular.js](https://angularjs.org/). :octocat:
+The app is written in Java, using [Spring Framework](http://spring.io/) on backend connected with PostgreSQL database. Following REST API fundamentals for easy extension the backend communicate on request/response base with frontend written in [Angular.js](https://angularjs.org/).
 
 ![DNS Discover Service Screenshot](screenshot.png)
 
