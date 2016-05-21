@@ -18,6 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 * Java JDK 1.8 - [Installation instructions](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
 * Your favourite Java IDE - [Try IntelliJ IDEA](https://www.jetbrains.com/idea/)
+* PostgreSQL Database Server - [PostgreSQL](http://www.postgresql.org/)
 
 ### First running
 
@@ -38,8 +39,6 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 
 3. :fire: Hit run in your IDE
 4. :tada: Head to `http://localhost:8888/[ENDPOINT]`
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## User-Project Management
 
