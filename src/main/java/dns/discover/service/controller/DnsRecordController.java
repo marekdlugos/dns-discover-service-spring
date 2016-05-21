@@ -17,7 +17,7 @@ public class DnsRecordController {
     DnsRecordService dnsRecordService;
 
     /**
-     * DNS Records
+     * GET all DNS Records
      *
      * @return Return all DNS records
      */
@@ -27,7 +27,7 @@ public class DnsRecordController {
     }
 
     /**
-     * DNS Record
+     * GET specific DNS Record
      *
      * @return Return DNS Record with specific dnsRecordId
      */
@@ -36,16 +36,35 @@ public class DnsRecordController {
         return dnsRecordService.getDnsRecord(dnsRecordId);
     }
 
+
+    /**
+     * Create the new DNS Record
+     *
+     * @param dnsRecord DNS Record you want to create
+     * @return          Return created DNS Record
+     */
     @RequestMapping(value = "/dnsrecords", method = POST)
     public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord) {
         return dnsRecordService.createDnsRecord(dnsRecord);
     }
 
+    /**
+     * Edit specific DNS Record
+     *
+     * @param dnsRecordId   Identification of Record you want to edit
+     * @param dnsRecord     Edited DNS Record
+     * @return              Return edited Record
+     */
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = PUT)
     public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord) {
         return dnsRecordService.editDnsRecord(dnsRecordId, dnsRecord);
     }
 
+    /**
+     * Delete specific DNS Record
+     *
+     * @param dnsRecordId Identification of Record you want to delete
+     */
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = DELETE)
     public void deleteDnsRecord(@PathVariable Long dnsRecordId) {
         dnsRecordService.deleteDnsRecord(dnsRecordId);

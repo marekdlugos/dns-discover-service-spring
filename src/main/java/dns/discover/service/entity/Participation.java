@@ -22,13 +22,21 @@ public class Participation {
     @JoinTable(name="account_project_role", joinColumns=@JoinColumn(name="account_project_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
     private List<Role> roles;
 
+    /**
+     * Account <-> Project relationship constructor
+     *
+     * @param account    Account identification
+     * @param project    Project identification
+     */
     public Participation(Account account, Project project) {
         this.account = account;
         this.project = project;
     }
 
+    /**
+     * Account <-> Project relationship Constructor for JPA only
+     */
     public Participation() {
-
     }
 
     public Long getId() {

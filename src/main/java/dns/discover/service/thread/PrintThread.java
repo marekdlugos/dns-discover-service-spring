@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class PrintThread extends Thread{
 
+    /**
+     * Run method printing out the names of running threads.
+     */
     @Override
     public void run() {
 

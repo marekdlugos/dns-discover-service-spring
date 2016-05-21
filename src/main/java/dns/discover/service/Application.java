@@ -31,6 +31,11 @@ public class Application {
     @Autowired
     ParticipationRepository participationRepository;
 
+    /**
+     * Main method
+     *
+     * @param args  Arguments
+     */
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
@@ -76,6 +81,7 @@ public class Application {
         dnsRecordRepository.save(adastra);
         dnsRecordRepository.save(finance);
 
+        // Defining Roles in the App
         Role watcher = new Role("Watcher", "Can view only the records related to project he is assigned.");
         Role editor = new Role("Editor", "Can view, edit and delete records related to assigned project.");
         Role manager = new Role("Manager", "Can view, edit and delete records related to project. Add and delete another users (watchers and editors) related to project. Create and delete projects.");

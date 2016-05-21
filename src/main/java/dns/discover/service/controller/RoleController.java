@@ -13,11 +13,22 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
+    /**
+     * GET all the Roles
+     *
+     * @return Return all roles in application
+     */
     @RequestMapping(value = "/roles")
     public Iterable<Role> getRoles(){
         return roleService.getRoles();
     }
 
+    /**
+     * GET specific Role
+     *
+     * @param roleId    Identification of Role that you want to GET
+     * @return          Return specific Role
+     */
     @RequestMapping(value = "/roles/{roleId}")
     public Role getRole(@PathVariable Long roleId) {
         return roleService.getRole(roleId);
