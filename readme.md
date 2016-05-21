@@ -1,10 +1,10 @@
-# DNS Discover Service
+# :eyeglasses: DNS Discover Service 
 
-## Overview
+## :book: Overview 
 
-DNS Discover Service is application for standard [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) server called [BIND](https://en.wikipedia.org/wiki/BIND) enabling dynamically loadable [Zone files](https://en.wikipedia.org/wiki/Zone_file) with Project and User management on the top of that.
+DNS Discover Service is application for standard [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) server called [BIND](https://en.wikipedia.org/wiki/BIND) enabling dynamically loadable [Zone files](https://en.wikipedia.org/wiki/Zone_file) with Project and User management on the top of that. :tada:
 
-The app is written in Java, using [Spring Framework](http://spring.io/) on backend connected with PostgreSQL database. Following REST API fundamentals for easy extension the backend communicate on request/response base with frontend written in [Angular.js](https://angularjs.org/).
+The app is written in Java, using [Spring Framework](http://spring.io/) on backend connected with PostgreSQL database. Following REST API fundamentals for easy extension the backend communicate on request/response base with frontend written in [Angular.js](https://angularjs.org/). :octocat:
 
 ![DNS Discover Service Screenshot](screenshot.png)
 
@@ -14,15 +14,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisities
 
-Things you need to install and run the app
+:boom: Things you need to install and run the app
 
 * Java JDK 1.8 - [Installation instructions](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
 * Your favourite Java IDE - [Try IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 ### First running
 
-1. First head to `src/main/resources/application.properties`
-2. Setup your connection with database
+1. :computer: First head to `src/main/resources/application.properties`
+2. :fist: Setup your connection with database
 
 ```
 #
@@ -36,8 +36,8 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 
 ```
 
-3. Hit run in your IDE
-4. Head to `http://localhost:8888/[ENDPOINT]`
+3. :fire: Hit run in your IDE
+4. :tada: Head to `http://localhost:8888/[ENDPOINT]`
 
 End with an example of getting some data out of the system or using it for a little demo
 
@@ -45,24 +45,24 @@ End with an example of getting some data out of the system or using it for a lit
 
 ### Roles
 
-* **Watcher** - Can view records related to project
-* **Editor** - Can view, edit and delete records related to project
-* **Manager** - Can view, edit and delete records related to project. Add and delete another users (watchers and editors) related to project. Create and delete projects.
-* **Admin** - Can view, edit and delete all records in app. Add and delete another users (watchers, editors and managers) across whole app. Create and delete all projects.
+* :hand: **Watcher** - Can view records related to project
+* :v: **Editor** - Can view, edit and delete records related to project
+* :facepunch: **Manager** - Can view, edit and delete records related to project. Add and delete another users (watchers and editors) related to project. Create and delete projects.
+* :muscle: **Admin** - Can view, edit and delete all records in app. Add and delete another users (watchers, editors and managers) across whole app. Create and delete all projects.
 
-## Short API documentation
+## :ledger: Short API documentation 
 
 The full documention will be created on Apiary.io
 
 ### End-points
 
-#### Role
+#### :hand: Role
 * GET List of Roles `roles/`
 * GET Detail of a specific Role `roles/{roleId}`
 * (POST Grant user access to project)
 * (POST Revoke user access to project)
 
-#### DNS Record
+#### :page_facing_up: DNS Record
 
 * GET List of DNS Records `dnsrecords/`
 * GET Detail of DNS Record with assigned Project `dnsrecords/{dnsRecordId}`
@@ -70,7 +70,7 @@ The full documention will be created on Apiary.io
 * PUT Edit existing DNS Record `dnsrecords/{dnsRecordId}`
 * DELETE Delete selected DNS Record `dnsrecords/{dnsRecordId}`
 
-#### Project
+#### :books: Project
 
 * GET List of Projects `projects/`
 * GET Detail of Project with its DNS Records `projects/{projectId}`
@@ -78,7 +78,7 @@ The full documention will be created on Apiary.io
 * PUT Edit existing Project `projects/{projectId}`
 * DELETE Delete selected Project `projects/{projectId}`
 
-#### User
+#### :man: User
 
 * GET List of users `users/`
 * GET Detail of user `users/{userId}`
@@ -86,7 +86,7 @@ The full documention will be created on Apiary.io
 * PUT Edit existing user `users/{userId}`
 * DELETE Delete existing user `users/{userId}`
 
-#### Auth
+#### :key: Auth
 
 * POST Login user
 * GET Logout
