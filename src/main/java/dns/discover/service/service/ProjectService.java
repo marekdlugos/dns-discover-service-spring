@@ -40,6 +40,8 @@ public class ProjectService {
     @Transactional
     public void deleteProject(Long projectId){
         projectRepository.delete(projectId);
+
+        // TODO: recordsrepository delete where projectId is projectId -> Delete project related records
     }
 
     /**
@@ -51,6 +53,9 @@ public class ProjectService {
     @Transactional
     public Project createProject(Project project){
         return projectRepository.save(project);
+
+        // TODO: Participation update -> added users
+        // TODO: Account_project_role -> add roles
     }
 
     /**
@@ -64,6 +69,10 @@ public class ProjectService {
     public Project editProject(Long projectId, Project project){
         project.setId(projectId);
         return projectRepository.save(project);
+
+        // TODO: Account_project_role update -> update roles
+        // TODO: Participation and Account_project_role delete -> Delete users from project
+        // TODO: Participation and Roles update -> Add users to project
     }
 
 }

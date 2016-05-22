@@ -19,6 +19,8 @@ public class DnsRecordService {
     @Transactional
     public Iterable<DnsRecord> getDnsRecords(){
         return dnsRecordRepository.findAll();
+
+        // TODO: Plus return name of the project
     }
 
     /**
@@ -51,6 +53,8 @@ public class DnsRecordService {
     @Transactional
     public DnsRecord createDnsRecord(DnsRecord dnsRecord){
         return dnsRecordRepository.save(dnsRecord);
+
+        // TODO: projectRepository save relationship to project
     }
 
     /**
@@ -64,6 +68,8 @@ public class DnsRecordService {
     public DnsRecord editDnsRecord(Long dnsRecordId, DnsRecord dnsRecord){
         dnsRecord.setId(dnsRecordId);
         return dnsRecordRepository.save(dnsRecord);
+
+        // TODO: projectRepository update relationship on project
     }
 
 }

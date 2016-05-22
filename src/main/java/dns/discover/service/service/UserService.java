@@ -1,6 +1,8 @@
 package dns.discover.service.service;
 
 import dns.discover.service.entity.Account;
+import dns.discover.service.entity.Participation;
+import dns.discover.service.repository.ParticipationRepository;
 import dns.discover.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +13,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ParticipationRepository participationRepository;
 
     /**
      * Function finds all Users in the app
@@ -41,6 +46,9 @@ public class UserService {
     @Transactional
     public void deleteUser(Long userId){
         userRepository.delete(userId);
+
+        // TODO: Delete from account_project_role
+        // TODO: Delete from participation
     }
 
     /**
