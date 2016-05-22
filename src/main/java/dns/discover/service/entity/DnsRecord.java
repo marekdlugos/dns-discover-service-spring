@@ -7,6 +7,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(indexes = {
+    @Index(columnList = "zone", name = "zone_index"),
+    @Index(columnList = "host", name = "host_index"),
+    @Index(columnList = "type", name = "type_index")
+})
 public class DnsRecord {
 
     @Id
