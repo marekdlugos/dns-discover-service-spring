@@ -11,7 +11,9 @@ public class Role {
     @Column(name = "role_id")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String description;
 
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="roles")

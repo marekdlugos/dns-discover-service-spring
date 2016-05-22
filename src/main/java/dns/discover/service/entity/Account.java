@@ -18,9 +18,11 @@ public class Account {
     @Column(name="account_id")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "account")

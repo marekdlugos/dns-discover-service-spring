@@ -18,9 +18,12 @@ public class DnsRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String zone;
+    @Column(nullable = false)
     private String host;
     private int ttl;
+    @Column(nullable = false)
     private String type;
     private int mx_priority;
     private String data;

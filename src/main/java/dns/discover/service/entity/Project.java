@@ -16,6 +16,7 @@ public class Project {
     @Column(name="project_id")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
     private String description;
 
