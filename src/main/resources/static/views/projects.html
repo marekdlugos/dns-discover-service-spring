@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Projects - DNS Discover Service</title>
+    <title>Users - DNS Discover Service</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
@@ -15,17 +15,19 @@
     <script src="../js/bootstrap.min.js"></script>
 
     <script src="../js/angular.min.js"></script>
-    <script src="../js/angular-resource.min.js"></script>
-    <script src="../js/angular-route.min.js"></script>
+    <!--<script src="../js/angular-resource.min.js"></script>-->
+    <!--<script src="../js/angular-route.min.js"></script>-->
     <script src="../js/checklist-model.js"></script>
     <script src="../app/app.js"></script>
+    <script src="../app/service.js"></script>
+    <script src="../app/controller.js"></script>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-app="dnsds">
+<body ng-app="myApp" class="ng-cloak">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -48,49 +50,134 @@
         </div>
     </nav>
 
-    <div class="container-fluid" ng-controller="ProjectController">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+    <div class="container-fluid" ng-controller="ProjectsController as pctrl">
+        <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li><a href="dashboard.html">Dashboard</a></li>
                     <li class="active"><a href="projects.html">Projects <span class="sr-only">(current)</span></a></li>
                     <li><a href="records.html">Records</a></li>
                     <li><a href="users.html">Users</a></li>
                 </ul>
-                <!--<ul class="nav nav-sidebar">-->
-                    <!--<li><a href="">Nav item again</a></li>-->
-                    <!--<li><a href="">One more nav</a></li>-->
-                    <!--<li><a href="">Another nav item</a></li>-->
-                <!--</ul>-->
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Projects <a href="projects-new.html" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new Project</a></h1>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="row">
+                <h1 class="page-header">Projects <a href="projects-new.html" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new project</a></h1>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Actions</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="project in projects">
-                                <td>{{ project.id }}</td>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.description }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-list" aria-hidden="true"></span> Show records</button>
-                                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
-                                </td>
-                            </tr>
+                        <tr ng-repeat="project in pctrl.projects">
+                            <td><span ng-bind="project.id"></span></td>
+                            <td><span ng-bind="project.name"></span></td>
+                            <td><span ng-bind="project.description"></span></td>
+                            <td>*</td>
+                            <td>
+                                <button type="button" ng-click="pctrl.edit(project.id)" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit</button>
+                                <button type="button" ng-click="pctrl.remove(project.id)" class="btn btn-danger custom-width">Remove</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="row" ng-show="pctrl.editable">
+                <h1>Edit project</h1>
+                <form ng-submit="pctrl.submit()" name="myForm" class="form-horizontal">
+                    <input type="hidden" ng-model="pctrl.project.id"/>
+                    <div class="col-md-5">
+                        <h2>General</h2>
+                        <div class="form-group">
+                            <label class="col-md-2 control-lable" for="uname">Project name</label>
+                            <input type="text" ng-model="pctrl.project.name" id="uname" name="uname" class="username form-control input-sm" placeholder="Enter your project name" required ng-minlength="3"/>
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.uname.$error.required">This is a required field</span>
+                                <span ng-show="myForm.uname.$error.minlength">Minimum length required is 3</span>
+                                <span ng-show="myForm.uname.$invalid">This field is invalid </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input type="text" name="description" id="description" class="form-control" ng-model="pctrl.project.description" placeholder="Description">
+                                    <div class="has-error" ng-show="myForm.$dirty">
+                                        <span ng-show="myForm.description.$error.required">This is a required field</span>
+                                        <span ng-show="myForm.description.$error.minlength">Minimum length required is 3</span>
+                                        <span ng-show="myForm.description.$invalid">This field is invalid </span>
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5" ng-controller="UserController as ctrl">
+                        <h2>Add users to project</h2>
+                        <div class="form-group">
+                                    <div class="panel panel-default">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th><!-- --></th>
+                                                <th>User</th>
+                                                <th>E-mail</th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                        <div style="overflow-y:auto; height: 170px;">
+                                            <table class="table">
+                                                <tbody ng-repeat="user in ctrl.users">
+                                                <tr>
+                                                    <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                                    <td><span ng-bind="user.name"></span></td>
+                                                    <td><span ng-bind="user.email"></span></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                        <h2>User roles</h2>
+                        <div class="form-group">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Select</th>
+                                                <th>User</th>
+                                                <th>Role</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" id="inlineCheckbox3" value="option1"></td>
+                                                </td>
+                                                <td>
+                                                    marek@rocketbuilt.tech
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" id="role1" name="role">
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                        <div class="form-group">
+                            <div class="form-actions floatRight">
+                                <a href="projects.html.html" ng-click="pctrl.submit()" ng-disabled="myForm.$invalid" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Edit project</a>
+                                <button type="button" ng-click="pctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </form>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
