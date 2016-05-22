@@ -297,7 +297,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
     self.remove = function(id){
         console.log('id to be deleted', id);
-        if(self.record.id === id) {//clean form if the record to be deleted is shown there.
+        if(self.project.id === id) {//clean form if the record to be deleted is shown there.
             self.reset();
         }
         self.deleteProject(id);
