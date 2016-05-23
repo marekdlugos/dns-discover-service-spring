@@ -75,8 +75,10 @@ public class Application {
         projectRepository.save(google);
         projectRepository.save(ms);
 
-        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382, google);
-        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382, ms);
+        DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382);
+        DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382);
+        adastra.setProject(ms);
+        adastra.setProject(google);
         google.setDnsRecords(Arrays.asList(adastra, finance));
         dnsRecordRepository.save(adastra);
         dnsRecordRepository.save(finance);

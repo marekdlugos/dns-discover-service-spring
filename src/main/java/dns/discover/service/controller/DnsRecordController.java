@@ -2,6 +2,8 @@ package dns.discover.service.controller;
 
 import dns.discover.service.entity.DnsRecord;
 import dns.discover.service.service.DnsRecordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class DnsRecordController {
 
+    private static final Logger DNSlog = LoggerFactory.getLogger(DnsRecordController.class);
+
     @Autowired
     DnsRecordService dnsRecordService;
 
@@ -23,6 +27,7 @@ public class DnsRecordController {
      */
     @RequestMapping(value = "/dnsrecords", method = GET)
     public Iterable<DnsRecord> getDnsRecords(){
+        DNSlog.debug("GET DNS Records, was called");
         return dnsRecordService.getDnsRecords();
     }
 
@@ -34,6 +39,7 @@ public class DnsRecordController {
      */
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = GET)
     public DnsRecord getDnsRecord(@PathVariable Long dnsRecordId) {
+        DNSlog.debug("GET a specific DNS Record, was called");
         return dnsRecordService.getDnsRecord(dnsRecordId);
     }
 
@@ -46,6 +52,7 @@ public class DnsRecordController {
      */
     @RequestMapping(value = "/dnsrecords", method = POST)
     public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord) {
+        DNSlog.debug("POST create a new DNS Record, was called");
         return dnsRecordService.createDnsRecord(dnsRecord);
     }
 
@@ -58,6 +65,7 @@ public class DnsRecordController {
      */
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = PUT)
     public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord) {
+        DNSlog.debug("PUT edit DNS Record, was called");
         return dnsRecordService.editDnsRecord(dnsRecordId, dnsRecord);
     }
 
@@ -68,6 +76,7 @@ public class DnsRecordController {
      */
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = DELETE)
     public void deleteDnsRecord(@PathVariable Long dnsRecordId) {
+        DNSlog.debug("DELETE DNS Record, was called");
         dnsRecordService.deleteDnsRecord(dnsRecordId);
     }
 

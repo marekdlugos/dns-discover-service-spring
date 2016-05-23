@@ -1,13 +1,21 @@
 package dns.discover.service.service;
 
 import dns.discover.service.entity.DnsRecord;
+import dns.discover.service.entity.Project;
 import dns.discover.service.repository.DnsRecordRepository;
+import dns.discover.service.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestPart;
+
+import java.util.Arrays;
 
 @Component
 public class DnsRecordService {
+
+    @Autowired
+    ProjectRepository projectRepository;
 
     @Autowired
     DnsRecordRepository dnsRecordRepository;
@@ -52,9 +60,14 @@ public class DnsRecordService {
      */
     @Transactional
     public DnsRecord createDnsRecord(DnsRecord dnsRecord){
-        return dnsRecordRepository.save(dnsRecord);
 
         // TODO: projectRepository save relationship to project
+
+        return dnsRecordRepository.save(dnsRecord);
+//        Project project = projectRepository.findOne(dnsRecord.project);
+//        dnsRecord.setProject(project);
+//        project.setDnsRecords(Arrays.asList(dnsRecord));
+
     }
 
     /**
@@ -66,10 +79,14 @@ public class DnsRecordService {
      */
     @Transactional
     public DnsRecord editDnsRecord(Long dnsRecordId, DnsRecord dnsRecord){
+
+        // TODO: projectRepository update relationship on project
         dnsRecord.setId(dnsRecordId);
         return dnsRecordRepository.save(dnsRecord);
 
-        // TODO: projectRepository update relationship on project
+//        Project project = projectRepository.findOne(dnsRecord.project);
+//        dnsRecord.setProject(project);
+//        project.setDnsRecords(Arrays.asList(dnsRecord));
     }
 
 }
