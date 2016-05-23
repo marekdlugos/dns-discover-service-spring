@@ -217,12 +217,14 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
 }])
 
-.controller('ProjectsController', ['$scope', 'ProjectService', function($scope, ProjectService) {
+.controller('ProjectsController', ['$scope', 'ProjectService',  function($scope, ProjectService) {
     var self = this;
     self.project={
         id: '',
         name: '',
-        description: ''
+        description: '',
+        participations: [], // list of users
+        dnsRecords: [] // list of dns records
     };
     self.projects=[];
     self.editable = false;
@@ -261,10 +263,10 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             );
     };
 
-    self.deleteRecord = function(id){
-        ProjectService.deleteRecord(id)
+    self.deleteProject = function(id){
+        ProjectService.deleteProject(id)
             .then(
-                self.fetchAllRecords,
+                self.fetchAllProjects,
                 function(errResponse){
                     console.error('Error while deleting project.', errResponse);
                 }
@@ -308,7 +310,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         self.project={
             id: '',
             name: '',
-            description: ''
+            description: '',
+            participations: [], // list of users
+            dnsRecords: [] // list of dns records
         };
         $scope.myForm.$setPristine(); //reset Form
     };

@@ -192,9 +192,9 @@
                         </div>
                         <div class="form-group" ng-controller="ProjectsController as pctrl">
                             <label for="project">Project</label>
-                            <select class="form-control" id="project" name="project" ng-model="rctrl.record.project" required>
+                            <select class="form-control" id="project" name="project" ng-model="rctrl.record.project">
                                 <div  ng-repeat="project in pctrl.projects">
-                                    <option><span ng-bind="project.email"></span></option>
+                                    <option><span ng-bind="project.name"></span></option>
                                 </div>
                             </select>
                         </div>

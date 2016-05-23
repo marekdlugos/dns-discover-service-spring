@@ -88,8 +88,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                 );
         },
 
-        updateRecord: function(user, id){
-            return $http.put('http://localhost:8888/dnsrecords/'+id, user)
+        updateRecord: function(user, recordid, projectid){
+            return $http.put('http://localhost:8888/dnsrecords/'+recordid+'/projects/'+projectid, user)
                 .then(
                     function(response){
                         return response.data;

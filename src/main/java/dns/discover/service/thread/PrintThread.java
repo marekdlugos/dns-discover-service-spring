@@ -17,7 +17,7 @@ public class PrintThread extends Thread{
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
         System.out.println(getName() + " is running");
     }

@@ -209,15 +209,14 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             refresh: '',
             retry: '',
             expire: '',
-            minimum: '',
-            project: ''
+            minimum: ''
         };
         $scope.myForm.$setPristine(); //reset Form
     };
 
 }])
 
-.controller('ProjectsController', ['$scope', 'ProjectService', function($scope, ProjectService) {
+.controller('ProjectsController', ['$scope', 'ProjectService',  function($scope, ProjectService) {
     var self = this;
     self.project={
         id: '',
@@ -261,10 +260,10 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             );
     };
 
-    self.deleteRecord = function(id){
-        ProjectService.deleteRecord(id)
+    self.deleteProject = function(id){
+        ProjectService.deleteProject(id)
             .then(
-                self.fetchAllRecords,
+                self.fetchAllProjects,
                 function(errResponse){
                     console.error('Error while deleting project.', errResponse);
                 }
