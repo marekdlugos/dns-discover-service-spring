@@ -229,6 +229,8 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.editable = false;
     $scope.selectedUsers = []; // here add userID + projectID
 
+    console.log($scope.selectedUsers);
+
     
 
     self.fetchAllProjects = function(){
@@ -326,7 +328,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.projectName = function (projectID) {
         for(var i = 0; i < self.projects.length; i++){
             if(self.projects[i].id === projectID) {
-                return = (self.projects[i].name);
+                return self.projects[i].name;
             }
         }
     }
