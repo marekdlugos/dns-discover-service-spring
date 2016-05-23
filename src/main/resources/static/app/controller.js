@@ -227,11 +227,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     };
     self.projects=[];
     self.editable = false;
-    $scope.selectedUsers = []; // here add userID + projectID
+    $scope.selectedUsers = [ 1, 2 ]; // here add userID + projectID
 
-    console.log($scope.selectedUsers);
-
-    
+    //console.log($scope.users);
 
     self.fetchAllProjects = function(){
         ProjectService.fetchAllProjects()

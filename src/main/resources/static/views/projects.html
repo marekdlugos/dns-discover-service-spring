@@ -130,11 +130,12 @@
                                     <table class="table">
                                         <tbody ng-repeat="user in ctrl.users">
                                         <tr>
-                                            <td><input type="checkbox" checklist-model="selectedUsers" checklist-value="user.id"></td></td>
+                                            <td><input type="checkbox" checklist-model="selectedUsers" checklist-value="user.id" ></td></td>
                                             <td><span ng-bind="user.name"></span></td>
                                             <td>
-                                                <select class="form-control" id="role" name="role" ng-model="pctrl.roleID">
-                                                    <option ng-selected="3"
+                                                <select class="form-control" id="role" name="role">
+                                                    <option
+                                                            ng-selected="{{role.id == pctrl.roleID}}"
                                                             ng-repeat="role in rolctrl.roles"
                                                             value="{{ role.id }}"
                                                             ng-bind="role.name">
