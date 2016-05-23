@@ -27,6 +27,13 @@ Method **POST** on `/save`
         "rolesIds" : [
             1
         ]
+    },
+    {
+        "projectId" : 2,
+        "accountId" : 2,
+        "rolesIds" : [
+            1
+        ]
     }
 ]
 ```

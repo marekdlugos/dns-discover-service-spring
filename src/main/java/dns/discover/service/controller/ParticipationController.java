@@ -37,7 +37,7 @@ public class ParticipationController {
      * @param participationDTO Participation DTO (projectId, accountId, roleId)
      *
      */
-    @RequestMapping(value = "/dto", method = POST)
+    @RequestMapping(value = "/save", method = POST)
     public void saveParticipations(@RequestBody List<ParticipationDTO> participationDTO){
         participationService.saveParticipations(participationDTO);
     }
