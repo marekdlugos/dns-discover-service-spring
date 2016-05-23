@@ -32,6 +32,12 @@ public class ParticipationService {
     @Autowired
     RoleRepository roleRepository;
 
+    /**
+     * GET project Participation
+     *
+     * @param projectId Identification of Project
+     * @return          Return project, users and their roles
+     */
     @Transactional
     public List<Participation> projectParticipation(Long projectId){
 
@@ -41,6 +47,11 @@ public class ParticipationService {
 
     }
 
+    /**
+     * DTO for saving Participation
+     *
+     * @param participationDTOs Participation DTO
+     */
     @Transactional
     public void saveParticipations(List<ParticipationDTO> participationDTOs) {
 

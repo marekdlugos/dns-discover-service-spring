@@ -20,12 +20,24 @@ public class ParticipationController {
     @Autowired
     ParticipationService participationService;
 
+    /**
+     * GET Project's users with their roles
+     *
+     * @param projectId Identification of Project you want to return users for
+     * @return          Return Participation (account, project, role)
+     */
     @RequestMapping(value = "/participations/{projectId}", method = GET)
     public List<Participation> projectParticipation(@PathVariable Long projectId) {
         return participationService.projectParticipation(projectId);
     }
 
-    @RequestMapping(value = "/dto", method = POST)
+    /**
+     * POST save project, user Participation with user's role
+     *
+     * @param participationDTO Participation DTO (projectId, accountId, roleId)
+     *
+     */
+    @RequestMapping(value = "/saveParticipation", method = POST)
     public void saveParticipations(@RequestBody List<ParticipationDTO> participationDTO){
         participationService.saveParticipations(participationDTO);
     }
