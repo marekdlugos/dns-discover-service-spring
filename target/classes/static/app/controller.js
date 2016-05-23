@@ -112,11 +112,11 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         refresh: '',
         retry: '',
         expire: '',
-        minimum: '',
-        project: ''
+        minimum: ''
     };
     self.records=[];
     self.editable = false;
+    self.projectid = '';
 
     self.fetchAllRecords = function(){
         RecordService.fetchAllRecords()
@@ -130,9 +130,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             );
     };
 
-    self.createRecord = function(record){
+    self.createRecord = function(record, projectid){
 
-        RecordService.createRecord(record)
+        RecordService.createRecord(record, projectid)
             .then(
                 self.fetchAllRecords(),
                 function(errResponse){
@@ -141,9 +141,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             );
     };
 
-    self.updateRecord = function(record, id){
+    self.updateRecord = function(record, recordid, projectid){
 
-        RecordService.updateRecord(record, id)
+        RecordService.updateRecord(record, recordid, projectid)
             .then(
                 self.fetchAllRecords(),
                 function(errResponse){
@@ -167,12 +167,14 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.submit = function() {
         if(self.record.id===null){
             console.log('Saving New record', self.record);
-            self.createRecord(self.record);
+            self.createRecord(self.record, self.projectid);
         }else{
-            self.updateRecord(self.record, self.record.id);
+            self.updateRecord(self.record, self.record.id, self.projectid);
             console.log('record updated with id ', self.record.id);
         }
         self.reset();
+        self.projectid = '';
+        self.editable = false;
     };
 
     self.edit = function(id){
@@ -209,8 +211,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             refresh: '',
             retry: '',
             expire: '',
-            minimum: '',
-            project: ''
+            minimum: ''
         };
         $scope.myForm.$setPristine(); //reset Form
     };
@@ -222,9 +223,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.project={
         id: '',
         name: '',
-        description: '',
-        participations: [], // list of users
-        dnsRecords: [] // list of dns records
+        description: ''
     };
     self.projects=[];
     self.editable = false;
@@ -310,9 +309,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         self.project={
             id: '',
             name: '',
-            description: '',
-            participations: [], // list of users
-            dnsRecords: [] // list of dns records
+            description: ''
         };
         $scope.myForm.$setPristine(); //reset Form
     };

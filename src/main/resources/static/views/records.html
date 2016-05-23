@@ -50,7 +50,7 @@
         </div>
     </nav>
 
-        <div class="container-fluid" ng-controller="RecordsController as rctrl">
+    <div class="container-fluid" ng-controller="RecordsController as rctrl">
         <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li><a href="dashboard.html">Dashboard</a></li>
@@ -59,7 +59,7 @@
                     <li><a href="users.html">Users</a></li>
                 </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProjectsController as pctrl">
             <div class="row">
                 <h1 class="page-header">Records <a href="records-new.html" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new record</a></h1>
                 <div class="table-responsive">
@@ -78,7 +78,7 @@
                                 <td><span ng-bind="record.id"></span></td>
                                 <td><span ng-bind="record.zone"></span></td>
                                 <td><span ng-bind="record.host"></span></td>
-                                <td><a href="projects.html" ><span ng-bind="record.project"></span></a></td>
+                                <td><a href="projects.html" ><span ng-bind="pctrl.projectName(record.project)"></span></a></td>
                                 <td>
                                     <button type="button" ng-click="rctrl.edit(record.id)" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit</button>
                                     <button type="button" ng-click="rctrl.remove(record.id)" class="btn btn-danger custom-width">Remove</button>
@@ -190,12 +190,14 @@
                                 <span ng-show="myForm.minimum.$error.required">This is a required field</span>
                             </div>
                         </div>
-                        <div class="form-group" ng-controller="ProjectsController as pctrl">
+                        <div class="form-group">
                             <label for="project">Project</label>
-                            <select class="form-control" id="project" name="project" ng-model="rctrl.record.project">
-                                <div  ng-repeat="project in pctrl.projects">
-                                    <option><span ng-bind="project.name"></span></option>
-                                </div>
+                            <select class="form-control" id="project" name="project" ng-model="rctrl.projectid">
+                                <option ng-selected="{{project.id == rctrl.projectid}}"
+                                        ng-repeat="project in pctrl.projects"
+                                        value="{{ project.id }}"
+                                        ng-bind="project.name">
+                                </option>
                             </select>
                         </div>
                         <div class="form-actions floatRight">

@@ -115,7 +115,7 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-5" ng-controller="UserController as ctrl">
                         <h2>Add users to project</h2>
-                        <div class="form-group">
+                        <div class="form-group" ng-controller="RoleController as rolctrl">
                             <div class="panel panel-default">
                                 <table class="table">
                                     <thead>
@@ -130,10 +130,15 @@
                                     <table class="table">
                                         <tbody ng-repeat="user in ctrl.users">
                                         <tr>
-                                            <td><input type="checkbox" checklist-model="self.project.participations" checklist-value="user.id"></td></td>
+                                            <td><input type="checkbox" checklist-model="selectedUsers" checklist-value="user.id"></td></td>
                                             <td><span ng-bind="user.name"></span></td>
                                             <td>
-                                                <select class="form-control" id="role1" name="role">
+                                                <select class="form-control" id="role" name="role" ng-model="pctrl.roleID">
+                                                    <option ng-selected="{{role.id == pctrl.roleID}}"
+                                                            ng-repeat="role in rolctrl.roles"
+                                                            value="{{ role.id }}"
+                                                            ng-bind="role.name">
+                                                    </option>
                                                 </select>
                                             </td>
                                         </tr>

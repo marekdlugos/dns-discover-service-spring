@@ -75,8 +75,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                 );
         },
 
-        createRecord: function(user){
-            return $http.post('http://localhost:8888/dnsrecords', user)
+        createRecord: function(user, projectid){
+            return $http.post('http://localhost:8888/dnsrecords'+projectid, user)
                 .then(
                     function(response){
                         return response.data;
@@ -88,14 +88,14 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                 );
         },
 
-        updateRecord: function(user, id){
-            return $http.put('http://localhost:8888/dnsrecords/'+id, user)
+        updateRecord: function(user, recordid, projectid){
+            return $http.put('http://localhost:8888/dnsrecords/'+recordid+'/project/'+projectid, user)
                 .then(
                     function(response){
                         return response.data;
                     },
                     function(errResponse){
-                        console.error('Error while updating user');
+                        console.error('Error while updating record');
                         return $q.reject(errResponse);
                     }
                 );

@@ -75,8 +75,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                 );
         },
 
-        createRecord: function(user){
-            return $http.post('http://localhost:8888/dnsrecords', user)
+        createRecord: function(user, projectid){
+            return $http.post('http://localhost:8888/dnsrecords'+projectid, user)
                 .then(
                     function(response){
                         return response.data;
@@ -89,13 +89,13 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         updateRecord: function(user, recordid, projectid){
-            return $http.put('http://localhost:8888/dnsrecords/'+recordid+'/projects/'+projectid, user)
+            return $http.put('http://localhost:8888/dnsrecords/'+recordid+'/project/'+projectid, user)
                 .then(
                     function(response){
                         return response.data;
                     },
                     function(errResponse){
-                        console.error('Error while updating user');
+                        console.error('Error while updating record');
                         return $q.reject(errResponse);
                     }
                 );
@@ -147,6 +147,18 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                     }
                 );
         },
+        createProject2: function(user){
+            return $http.post('http://localhost:8888/save', user)
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errResponse){
+                        console.error('Error while creating project');
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
 
         updateProject: function(user, id){
             return $http.put('http://localhost:8888/projects/'+id, user)
@@ -176,4 +188,24 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 
     };
 
-}]);
+}])
+    
+.factory('RoleService', ['$http', '$q', function($http, $q){
+
+        return {
+
+            fetchAllRoles: function () {
+                return $http.get('http://localhost:8888/roles')
+                    .then(
+                        function (response) {
+                            return response.data;
+                        },
+                        function (errResponse) {
+                            console.error('Error while fetching roles');
+                            return $q.reject(errResponse);
+                        }
+                    );
+            }
+        }
+            
+    }]);

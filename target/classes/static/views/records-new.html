@@ -165,10 +165,12 @@
                                 </div>
                                 <div class="form-group" ng-controller="ProjectsController as pctrl">
                                     <label for="project">Project</label>
-                                    <select class="form-control" id="project" name="project" ng-model="pctrl.project.name" >
-                                        <div  ng-repeat="project in pctrl.record.projects">
-                                            <option><span ng-bind="project.name"></span></option>
-                                        </div>
+                                    <select class="form-control" id="project" name="project" ng-model="rctrl.projectid">
+                                        <option ng-selected="{{project.id == rctrl.projectid}}"
+                                                ng-repeat="project in pctrl.projects"
+                                                value="{{ project.id }}"
+                                                ng-bind="project.name">
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-actions floatRight">

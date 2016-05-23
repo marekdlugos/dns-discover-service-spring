@@ -112,11 +112,11 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         refresh: '',
         retry: '',
         expire: '',
-        minimum: '',
-        project: ''
+        minimum: ''
     };
     self.records=[];
     self.editable = false;
+    self.projectid = '';
 
     self.fetchAllRecords = function(){
         RecordService.fetchAllRecords()
@@ -130,9 +130,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             );
     };
 
-    self.createRecord = function(record){
+    self.createRecord = function(record, projectid){
 
-        RecordService.createRecord(record)
+        RecordService.createRecord(record, projectid)
             .then(
                 self.fetchAllRecords(),
                 function(errResponse){
@@ -141,9 +141,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
             );
     };
 
-    self.updateRecord = function(record, id){
+    self.updateRecord = function(record, recordid, projectid){
 
-        RecordService.updateRecord(record, id)
+        RecordService.updateRecord(record, recordid, projectid)
             .then(
                 self.fetchAllRecords(),
                 function(errResponse){
@@ -167,12 +167,14 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.submit = function() {
         if(self.record.id===null){
             console.log('Saving New record', self.record);
-            self.createRecord(self.record);
+            self.createRecord(self.record, self.projectid);
         }else{
-            self.updateRecord(self.record, self.record.id);
+            self.updateRecord(self.record, self.record.id, self.projectid);
             console.log('record updated with id ', self.record.id);
         }
         self.reset();
+        self.projectid = '';
+        self.editable = false;
     };
 
     self.edit = function(id){
@@ -225,6 +227,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     };
     self.projects=[];
     self.editable = false;
+    $scope.selectedUsers = []; // here add userID + projectID
+
+    
 
     self.fetchAllProjects = function(){
         ProjectService.fetchAllProjects()
@@ -241,6 +246,13 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.createProject = function(record){
 
         ProjectService.createProject(record)
+            .then(
+                self.fetchAllProjects,
+                function(errResponse){
+                    console.error('Error while creating project.', errResponse);
+                }
+            ),
+        ProjectService.createProject2(record)
             .then(
                 self.fetchAllProjects,
                 function(errResponse){
@@ -311,5 +323,35 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         };
         $scope.myForm.$setPristine(); //reset Form
     };
+    self.projectName = function (projectID) {
+        for(var i = 0; i < self.projects.length; i++){
+            if(self.projects[i].id === projectID) {
+                return = (self.projects[i].name);
+            }
+        }
+    }
 
+}])
+
+.controller('RoleController', ['$scope', 'RoleService',  function($scope, RoleService) {
+    var self = this;
+    self.role={
+        id: '',
+        name: '',
+        description: ''
+    };
+    self.roles=[];
+
+    self.fetchAllRoles = function(){
+        RoleService.fetchAllRoles()
+            .then(
+                function(d) {
+                    self.roles = d;
+                },
+                function(errResponse){
+                    console.error('Error while fetching Currencies', errResponse);
+                }
+            );
+    };
+    self.fetchAllRoles();
 }]);
