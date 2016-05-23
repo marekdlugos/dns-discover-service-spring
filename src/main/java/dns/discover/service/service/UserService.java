@@ -45,10 +45,15 @@ public class UserService {
      */
     @Transactional
     public void deleteUser(Long userId){
-        userRepository.delete(userId);
 
-        // TODO: Delete from account_project_role
-        // TODO: Delete from participation
+        Account account = userRepository.findOne(userId);
+
+        for ( Participation p : account.getParticipations()
+             ) {
+            participationRepository.delete(p);
+        }
+
+        userRepository.delete(userId);
     }
 
     /**

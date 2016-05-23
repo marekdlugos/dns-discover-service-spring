@@ -67,8 +67,9 @@ public class Application {
 
     @PostConstruct
     private void load() {
-        Account marek = new Account("Marek Dlugos", "marek@rocketbuilt.tech", "tralala");
+        Account marek = new Account("Marek Dlugos", "marek@rocketbuilt.tech", "pass");
         Account martin = new Account("Martin Tlachac", "martin@tlachac.cz", "tralala");
+        Account pepa = new Account("Pepa Strossmayer", "pepa@pep.cz", "xixi");
 
         Project google = new Project("Google", "Landing page");
         Project ms = new Project("Microsoft", "page");
@@ -95,9 +96,17 @@ public class Application {
 
         userRepository.save(marek);
         userRepository.save(martin);
+        userRepository.save(pepa);
 
         Participation marek_google = new Participation(marek, google);
         participationRepository.save(marek_google);
+
+        Participation martin_ms = new Participation(martin, ms);
+        participationRepository.save(martin_ms);
+
+        Participation martin_google = new Participation(martin, google);
+        participationRepository.save(martin_google);
+
 
     }
 

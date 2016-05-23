@@ -50,10 +50,10 @@ public class DnsRecordController {
      * @param dnsRecord DNS Record you want to create
      * @return          Return created DNS Record
      */
-    @RequestMapping(value = "/dnsrecords", method = POST)
-    public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord) {
+    @RequestMapping(value = "/dnsrecords/{projectId}", method = POST)
+    public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord, @PathVariable Long projectId) {
         DNSlog.debug("POST create a new DNS Record, was called");
-        return dnsRecordService.createDnsRecord(dnsRecord);
+        return dnsRecordService.createDnsRecord(dnsRecord, projectId);
     }
 
     /**
@@ -63,10 +63,10 @@ public class DnsRecordController {
      * @param dnsRecord     Edited DNS Record
      * @return              Return edited Record
      */
-    @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = PUT)
-    public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord) {
+    @RequestMapping(value = "/dnsrecords/{dnsRecordId}/project/{projectId}", method = PUT)
+    public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord, @PathVariable Long projectId) {
         DNSlog.debug("PUT edit DNS Record, was called");
-        return dnsRecordService.editDnsRecord(dnsRecordId, dnsRecord);
+        return dnsRecordService.editDnsRecord(dnsRecordId, dnsRecord, projectId);
     }
 
     /**

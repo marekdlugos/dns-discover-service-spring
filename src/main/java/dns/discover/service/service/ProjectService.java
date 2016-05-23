@@ -1,6 +1,8 @@
 package dns.discover.service.service;
 
+import dns.discover.service.entity.Participation;
 import dns.discover.service.entity.Project;
+import dns.discover.service.repository.ParticipationRepository;
 import dns.discover.service.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +13,9 @@ public class ProjectService {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    ParticipationRepository participationRepository;
 
     /**
      * Function finds all Projects
@@ -39,9 +44,18 @@ public class ProjectService {
      */
     @Transactional
     public void deleteProject(Long projectId){
+
+        Project project = projectRepository.findOne(projectId);
+
+        for (Participation p: project.getParticipations()
+             ) {
+
+            participationRepository.delete(p);
+
+        }
+
         projectRepository.delete(projectId);
 
-        // TODO: recordsrepository delete where projectId is projectId -> Delete project related records
     }
 
     /**

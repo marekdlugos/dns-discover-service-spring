@@ -1,5 +1,9 @@
 package dns.discover.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,8 @@ public class Participation {
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="account_project_role", joinColumns=@JoinColumn(name="account_project_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Role> roles;
 
     /**

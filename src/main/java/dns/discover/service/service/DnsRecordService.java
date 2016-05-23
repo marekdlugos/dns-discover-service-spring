@@ -27,8 +27,6 @@ public class DnsRecordService {
     @Transactional
     public Iterable<DnsRecord> getDnsRecords(){
         return dnsRecordRepository.findAll();
-
-        // TODO: Plus return name of the project
     }
 
     /**
@@ -59,14 +57,13 @@ public class DnsRecordService {
      * @return          Created DNS Record
      */
     @Transactional
-    public DnsRecord createDnsRecord(DnsRecord dnsRecord){
+    public DnsRecord createDnsRecord(DnsRecord dnsRecord, Long projectId){
 
-        // TODO: projectRepository save relationship to project
+        Project project = projectRepository.findOne(projectId);
+        dnsRecord.setProject(project);
+        project.setDnsRecords(Arrays.asList(dnsRecord));
 
         return dnsRecordRepository.save(dnsRecord);
-//        Project project = projectRepository.findOne(dnsRecord.project);
-//        dnsRecord.setProject(project);
-//        project.setDnsRecords(Arrays.asList(dnsRecord));
 
     }
 
@@ -78,15 +75,14 @@ public class DnsRecordService {
      * @return              Return edited DNS Record
      */
     @Transactional
-    public DnsRecord editDnsRecord(Long dnsRecordId, DnsRecord dnsRecord){
+    public DnsRecord editDnsRecord(Long dnsRecordId, DnsRecord dnsRecord, Long projectId){
 
-        // TODO: projectRepository update relationship on project
         dnsRecord.setId(dnsRecordId);
-        return dnsRecordRepository.save(dnsRecord);
+        Project project = projectRepository.findOne(projectId);
+        dnsRecord.setProject(project);
+        project.setDnsRecords(Arrays.asList(dnsRecord));
 
-//        Project project = projectRepository.findOne(dnsRecord.project);
-//        dnsRecord.setProject(project);
-//        project.setDnsRecords(Arrays.asList(dnsRecord));
+        return dnsRecordRepository.save(dnsRecord);
     }
 
 }

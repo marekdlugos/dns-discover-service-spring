@@ -24,7 +24,7 @@ public class Project {
     @JsonIgnore
     private List<Participation> participations = new ArrayList<Participation>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     private List<DnsRecord> dnsRecords = new ArrayList<DnsRecord>();
 
     /**
