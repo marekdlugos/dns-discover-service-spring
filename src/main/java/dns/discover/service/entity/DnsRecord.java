@@ -12,7 +12,7 @@ import java.util.Date;
     @Index(columnList = "host", name = "host_index"),
     @Index(columnList = "type", name = "type_index")
 })
-public class DnsRecord {
+public class DnsRecord extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
