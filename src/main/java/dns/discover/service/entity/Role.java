@@ -6,10 +6,10 @@ import java.util.List;
 @Entity
 public class Role extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "role_id")
+//    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -36,6 +36,14 @@ public class Role extends AbstractEntity {
     public Role(){
     }
 
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+
     public String getName() {
         return name;
     }
@@ -58,13 +66,5 @@ public class Role extends AbstractEntity {
 
     public void setParticipations(List<Participation> participations) {
         this.participations = participations;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

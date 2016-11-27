@@ -13,10 +13,10 @@ import java.util.List;
 @Entity
 public class Account extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="account_id")
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="account_id")
+//    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -49,13 +49,13 @@ public class Account extends AbstractEntity {
     public Account() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;

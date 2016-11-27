@@ -11,10 +11,10 @@ import java.util.List;
 @Entity
 public class Participation extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="account_project_id")
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="account_project_id")
+//    private Long id;
 
     @ManyToOne
     private Account account;
@@ -45,13 +45,13 @@ public class Participation extends AbstractEntity {
     public Participation() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public Account getAccount() {
         return account;
