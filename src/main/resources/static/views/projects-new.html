@@ -104,11 +104,13 @@
                                             <tbody ng-repeat="user in ctrl.users">
                                             <tr>
                                                 <td>
-                                                    <input type="checkbox" checklist-model="pctrl.participation" checklist-value="user.id">
+                                                    <input type="checkbox" checklist-model="pctrl.participation.userID" checklist-value="user.id">
                                                 </td>
                                                 <td><span ng-bind="user.name"></span></td>
                                                 <td>
                                                     <select class="form-control" id="role1" name="role">
+                                                       <!-- repeat role from roles -->
+                                                       <!-- <div ng-bind="role.name" checklist-model="pctrl.participation.roleID" checklist-value="role.id"></div>-->
                                                     </select>
                                                 </td>
                                             </tr>

@@ -3,7 +3,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     return {
 
         fetchAllUsers: function() {
-            return $http.get('http://localhost:8888/users')
+            return $http.get('http://localhost:8080/users')
                 .then(
                     function(response){
                         return response.data;
@@ -16,7 +16,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         createUser: function(user){
-            return $http.post('http://localhost:8888/users', user)
+            return $http.post('http://localhost:8080/users', user)
                 .then(
                     function(response){
                         return response.data;
@@ -29,7 +29,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         updateUser: function(user, id){
-            return $http.put('http://localhost:8888/users/'+id, user)
+            return $http.put('http://localhost:8080/users/'+id, user)
                 .then(
                     function(response){
                         return response.data;
@@ -42,7 +42,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         deleteUser: function(id){
-            return $http.delete('http://localhost:8888/users/'+id)
+            return $http.delete('http://localhost:8080/users/'+id)
                 .then(
                     function(response){
                         return response.data;
@@ -63,7 +63,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     return {
 
         fetchAllRecords: function() {
-            return $http.get('http://localhost:8888/dnsrecords')
+            return $http.get('http://localhost:8080/dnsrecords')
                 .then(
                     function(response){
                         return response.data;
@@ -76,7 +76,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         createRecord: function(user, projectid){
-            return $http.post('http://localhost:8888/dnsrecords'+projectid, user)
+            return $http.post('http://localhost:8080/dnsrecords'+projectid, user)
                 .then(
                     function(response){
                         return response.data;
@@ -89,7 +89,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         updateRecord: function(user, recordid, projectid){
-            return $http.put('http://localhost:8888/dnsrecords/'+recordid+'/project/'+projectid, user)
+            return $http.put('http://localhost:8080/dnsrecords/'+recordid+'/project/'+projectid, user)
                 .then(
                     function(response){
                         return response.data;
@@ -102,7 +102,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         deleteRecord: function(id){
-            return $http.delete('http://localhost:8888/dnsrecords/'+id)
+            return $http.delete('http://localhost:8080/dnsrecords/'+id)
                 .then(
                     function(response){
                         return response.data;
@@ -123,7 +123,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     return {
 
         fetchAllProjects: function() {
-            return $http.get('http://localhost:8888/projects')
+            return $http.get('http://localhost:8080/projects')
                 .then(
                     function(response){
                         return response.data;
@@ -136,7 +136,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         createProject: function(user){
-            return $http.post('http://localhost:8888/projects', user)
+            return $http.post('http://localhost:8080/projects', user)
                 .then(
                     function(response){
                         return response.data;
@@ -147,8 +147,9 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                     }
                 );
         },
+        // save -> list {accountID, projectID, proleID}
         createProject2: function(user){
-            return $http.post('http://localhost:8888/save', user)
+            return $http.post('http://localhost:8080/save', user)
                 .then(
                     function(response){
                         return response.data;
@@ -161,7 +162,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         updateProject: function(user, id){
-            return $http.put('http://localhost:8888/projects/'+id, user)
+            return $http.put('http://localhost:8080/projects/'+id, user)
                 .then(
                     function(response){
                         return response.data;
@@ -174,7 +175,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         },
 
         deleteProject: function(id){
-            return $http.delete('http://localhost:8888/projects/'+id)
+            return $http.delete('http://localhost:8080/projects/'+id)
                 .then(
                     function(response){
                         return response.data;
@@ -195,7 +196,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         return {
 
             fetchAllRoles: function () {
-                return $http.get('http://localhost:8888/roles')
+                return $http.get('http://localhost:8080/roles')
                     .then(
                         function (response) {
                             return response.data;

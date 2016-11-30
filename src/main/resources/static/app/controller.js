@@ -225,6 +225,11 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         name: '',
         description: ''
     };
+    self.participation={
+        userID: '',
+        projectID: '',
+        userRoleID: '',
+    }
     self.projects=[];
     self.editable = false;
     $scope.selectedUsers = [ 1, 2 ]; // here add userID + projectID
