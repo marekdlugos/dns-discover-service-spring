@@ -5,14 +5,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jakub on 30.12.2016.
- */
 @Entity
 @Table(name = "PROJECTS")
 public class Project{
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +24,10 @@ public class Project{
     public Project() {
     }
 
-    public Project(String name, String description, List<DnsRecord> dnsRecords) {
+    public Project(String name, String description) {
         this.name = name;
         this.description = description;
-        this.dnsRecords = dnsRecords;
+        this.dnsRecords = null;
     }
 
     public Long getId() {
@@ -66,6 +61,7 @@ public class Project{
     public void setDnsRecords(List<DnsRecord> dnsRecords) {
         this.dnsRecords = dnsRecords;
     }
+
 
     @Override
     public String toString() {

@@ -7,52 +7,34 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-/**
- * Created by Jakub on 30.12.2016.
- */
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-
+    // @formatter:off
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        // @formatter:off
-        http    .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
+        http
+            .authorizeRequests()
+                .antMatchers("/login.html").permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+            .httpBasic()
                 .and()
-                .logout()
-                .permitAll();
+                .csrf().disable();
 
-        http.authorizeRequests().antMatchers("/").permitAll().and()
-                .authorizeRequests().antMatchers("/console/*").permitAll();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-        // @formatter:on
     }
+    // @formatter:on
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user_acc").password("heslo").roles("USER");
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
 
 }

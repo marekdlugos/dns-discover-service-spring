@@ -38,7 +38,7 @@ public class DnsRecordServiceImpl implements DnsRecordService {
 
     @Override
     public void addDnsRecord(DnsRecord dnsRecord) {
-        LOG.info("Add DnsRecord with id:" +dnsRecord.getId());
+        LOG.info("Add DnsRecord with zone:" +dnsRecord.getZone());
         dnsRecordRepository.save(dnsRecord);
     }
 

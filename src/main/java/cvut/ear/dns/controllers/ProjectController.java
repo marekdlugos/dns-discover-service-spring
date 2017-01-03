@@ -1,24 +1,31 @@
 package cvut.ear.dns.controllers;
 
 import cvut.ear.dns.models.Project;
+import cvut.ear.dns.models.User;
 import cvut.ear.dns.services.ProjectService;
+import cvut.ear.dns.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-@Controller
+@RestController
 public class ProjectController {
 
     private static final Logger log = LoggerFactory.getLogger(ProjectController.class);
 
     private ProjectService projectService;
+    private UserService userService;
 
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
     @Autowired
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
@@ -51,6 +58,7 @@ public class ProjectController {
      * Create a new Project
      *
      * @param project   Project that you want to create
+     * @param UsersIDs  Ids of users added to project
      * @return          Return created project
      */
     @RequestMapping(value = "/projects", method = POST)
@@ -68,7 +76,7 @@ public class ProjectController {
      * @return              Return edited Project
      */
     @RequestMapping(value = "/projects/{projectId}", method = PUT)
-    public Project editDnsRecord(@PathVariable Long projectId, @RequestBody Project project) {
+    public Project editProject(@PathVariable Long projectId, @RequestBody Project project) {
         log.debug("PUT edit Project, was called");
         project.setId(projectId);
         projectService.updateProject(project);
