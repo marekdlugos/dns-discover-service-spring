@@ -1,5 +1,9 @@
 package cvut.ear.dns.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
@@ -11,10 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "USERS")
@@ -62,18 +63,19 @@ public class User implements UserDetails{
 
     private boolean tokenExpired;
 
-    private Role roles;
-
-    @ManyToMany
+    @ManyToOne
     @JoinTable(
-            name = "user_project",
-            joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")}
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Project> projects;
+    private Role role;
+
+    @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Participation> participations;
 
     public User() {
+
     }
 
     public User(String username, String password, String firstName, String lastName, String email) {
@@ -83,6 +85,7 @@ public class User implements UserDetails{
         this.lastName = lastName;
         this.email = email;
         this.tokenExpired = false;
+        this.participations = new ArrayList<>();
     }
 
     @PrePersist
@@ -159,19 +162,20 @@ public class User implements UserDetails{
     }
 
     public Role getRoles() {
-        return roles;
+        return role;
     }
 
     public void setRoles(Role role) {
-        this.roles = role;
+        this.role = role;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+
+    public List<Participation> getParticipations() {
+        return participations;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
     }
 
     @Override
@@ -185,7 +189,7 @@ public class User implements UserDetails{
                 ", lastAccessedDate=" + lastAccessedDate +
                 ", enabled=" + enabled +
                 ", tokenExpired=" + tokenExpired +
-                ", roles=" + roles +
+                ", roles=" + role +
                 '}';
     }
 
@@ -195,9 +199,7 @@ public class User implements UserDetails{
         if (getRoles() == null){
             throw new UsernameNotFoundException("User: " +getUsername()+ " has no roles!!!");
         }
-        for (Permission permission : getRoles().getPermissions()){
-            grantedAuthorities.add(permission);
-        }
+        grantedAuthorities.add(getRoles());
         return grantedAuthorities;
     }
 

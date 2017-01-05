@@ -8,32 +8,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
 
-    @Autowired
-    UserRepository userRepository;
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(){
-        return "login";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody String username, String password){
-        User user = userRepository.findByUsername(username);
-        if (Objects.equals(user.getPassword(), password)){
-            return "views/dashboard";
-        }
-        return "/login-error";
+    public String login() {
+        //TODO security
+        return "login";
     }
 
-    @RequestMapping("/login-error")
-    public String loginError(Model model){
-        model.addAttribute("loginError", true);
-        return "login";
+    @RequestMapping("/")
+    public String getHomePage(){
+        return "dashboard";
     }
 }

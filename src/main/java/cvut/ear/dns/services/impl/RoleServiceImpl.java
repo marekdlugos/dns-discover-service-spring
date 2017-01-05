@@ -70,7 +70,6 @@ public class RoleServiceImpl implements RoleService {
         Role update_role = roleRepository.findOne(role.getId());
 
         update_role.setName(role.getName());
-        update_role.setPermissions(role.getPermissions());
 
         roleRepository.save(update_role);
     }
@@ -80,20 +79,4 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findAll();
     }
 
-    @Override
-    public void assignPermissionToRole(Permission permission, Role role) {
-        LOG.info("Assign permission: " +permission.getName()+ " to role:" + role.getName());
-
-        Role assign_role = roleRepository.findByName(role.getName());
-        if (assign_role == null){
-            throw new NoResultException("Role does not exist");
-        }
-        Permission assign_permission = permissionRepository.findByName(permission.getName());
-        if (assign_permission == null){
-            throw new NoResultException("Permission does not exist");
-        }
-
-        assign_role.getPermissions().add(assign_permission);
-        roleRepository.save(assign_role);
-    }
 }

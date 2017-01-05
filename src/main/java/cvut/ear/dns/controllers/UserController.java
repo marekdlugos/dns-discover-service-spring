@@ -42,21 +42,9 @@ public class UserController {
      * @return          Return specific User
      */
     @RequestMapping(value = "/users/{UserId}")
-    public User getUser(@PathVariable Long UserId){
+    public User getUserById(@PathVariable Long UserId){
         log.debug("GET specific User, was called");
         return userService.getUser(UserId);
-    }
-
-    /**
-     * GET specific User
-     *
-     * @param username    Identification of User you want to GET
-     * @return          Return specific User
-     */
-    @RequestMapping(value = "/users/{username}")
-    public User getUser(@PathVariable String username){
-        log.debug("GET specific User, was called");
-        return userService.getUser(username);
     }
 
     /**

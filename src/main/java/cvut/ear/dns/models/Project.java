@@ -1,33 +1,48 @@
 package cvut.ear.dns.models;
 
+import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "PROJECTS")
-public class Project{
+public class Project extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String name;
-
     private String description;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
-    private List<DnsRecord> dnsRecords = new ArrayList<>();
+    @OneToMany(mappedBy = "projectID", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Participation> participations;
 
-    public Project() {
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DnsRecord> dnsRecords;
 
+    /**
+     * Project Constructor
+     *
+     * @param name        Name of the project
+     * @param description Description of the project
+     */
     public Project(String name, String description) {
         this.name = name;
         this.description = description;
-        this.dnsRecords = null;
+        this.participations = new ArrayList<>();
+        this.dnsRecords = new ArrayList<>();
+    }
+
+    /**
+     * Project Constructor for JPA only
+     */
+    public Project() {
     }
 
     public Long getId() {
@@ -54,22 +69,19 @@ public class Project{
         this.description = description;
     }
 
+    public List<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
+    }
+
     public List<DnsRecord> getDnsRecords() {
         return dnsRecords;
     }
 
     public void setDnsRecords(List<DnsRecord> dnsRecords) {
         this.dnsRecords = dnsRecords;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", dnsRecords=" + dnsRecords +
-                '}';
     }
 }

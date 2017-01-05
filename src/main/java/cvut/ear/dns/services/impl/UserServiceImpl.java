@@ -1,5 +1,6 @@
 package cvut.ear.dns.services.impl;
 
+import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.models.User;
 import cvut.ear.dns.models.Role;
@@ -29,14 +30,9 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private ProjectRepository projectRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public void setProjectRepository(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
 
     @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
@@ -117,22 +113,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void assignProjectToUser(Project project, User user) {
-        LOG.info("Assign Project: " +project.getName()+ " to user: " + user.getUsername());
+    public void assignParticipationToUser(Participation participation) {
+        LOG.info("Assign Participation: "+participation.getId()+"  to user: " +participation.getId().getUserID());
 
-        Project assign_project = projectRepository.findOne(project.getId());
-        if (assign_project == null){
-            throw new NoResultException("Project does not exist");
-        }
-        User assign_user = userRepository.findByUsername(user.getUsername());
+        User assign_user = userRepository.findOne(participation.getId().getUserID());
         if (assign_user == null){
             throw new NoResultException("User does not exist");
         }
 
-        assign_user.getProjects().add(assign_project);
+        assign_user.getParticipations().add(participation);
         userRepository.save(assign_user);
     }
 
+    /**
+     * @return current logged user
+     */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         LOG.info("Load user by username:" + s);

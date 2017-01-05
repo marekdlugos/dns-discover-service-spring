@@ -33,10 +33,9 @@ public class DnsRecord{
     private int expire;
     private int minimum;
 
-    @ManyToOne
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Project project;
+/*    @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
+    private Project project;*/
 
     /**
      * DNS Record Constructor
@@ -178,11 +177,11 @@ public class DnsRecord{
         this.minimum = minimum;
     }
 
-    public Project getProject() {
+/*    public Project getProject() {
         return project;
     }
 
     public void setProject(Project project) {
         this.project = project;
-    }
+    }*/
 }

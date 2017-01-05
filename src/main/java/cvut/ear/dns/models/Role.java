@@ -26,15 +26,6 @@ public class Role implements Serializable, GrantedAuthority {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "role_permissions",
-            joinColumns = {@JoinColumn(name="role_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")}
-    )
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Permission> permissions;
-
     public Role() {
     }
 
@@ -58,14 +49,6 @@ public class Role implements Serializable, GrantedAuthority {
         this.name = name;
     }
 
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
     @Override
     public String getAuthority() {
         return getName();
@@ -76,7 +59,6 @@ public class Role implements Serializable, GrantedAuthority {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", permissions=" + permissions +
                 '}';
     }
 }

@@ -4,13 +4,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
-/**
- * Created by Jakub on 30.12.2016.
- */
+
 @Entity
 @Table(name = "PERMISSIONS")
-public class Permission implements GrantedAuthority{
+public class Permission implements Serializable{
 
 
     private static final long serialVersionUID = 1L;
@@ -44,10 +44,5 @@ public class Permission implements GrantedAuthority{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String getAuthority() {
-        return getName();
     }
 }

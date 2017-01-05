@@ -1,3 +1,4 @@
+
 package cvut.ear.dns.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -17,20 +19,17 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // @formatter:off
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-                .antMatchers("/login.html").permitAll()
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .and()
-            .httpBasic()
+                .httpBasic()
                 .and()
                 .csrf().disable();
-
     }
-    // @formatter:on
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -38,3 +37,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class DnsRecordServiceImpl implements DnsRecordService {
         updated_dnsrecord.setHost(dnsRecord.getHost());
         updated_dnsrecord.setMinimum(dnsRecord.getMinimum());
         updated_dnsrecord.setMx_priority(dnsRecord.getMx_priority());
-        updated_dnsrecord.setProject(dnsRecord.getProject());
+        //updated_dnsrecord.setProject(dnsRecord.getProject());
         updated_dnsrecord.setRefresh(dnsRecord.getRefresh());
         updated_dnsrecord.setResp_person(dnsRecord.getResp_person());
         updated_dnsrecord.setSerial(dnsRecord.getSerial());
@@ -66,7 +67,32 @@ public class DnsRecordServiceImpl implements DnsRecordService {
         updated_dnsrecord.setType(dnsRecord.getType());
         updated_dnsrecord.setZone(dnsRecord.getZone());
 
+
+        //Project project = updated_dnsrecord.getProject();
+        //project.getDnsRecords().remove(dnsRecord);
+        //projectRepository.save(project);
+        
         dnsRecordRepository.save(updated_dnsrecord);
+    }
+
+    @Override
+    public void assignProjectToDnsRecord(Project project, DnsRecord dnsRecord) {
+        LOG.info("Assign Project: "+project.getName()+"  to DnsRecord: " +dnsRecord.getZone());
+
+        Project assign_project = projectRepository.findOne(project.getId());
+        if (assign_project == null){
+            throw new NoResultException("Project does not exist");
+        }
+        DnsRecord assign_record = dnsRecordRepository.findOne(dnsRecord.getId());
+        if (assign_record == null){
+            throw new NoResultException("DnsRecord does not exist");
+        }
+
+        /*assign_record.setProject(assign_project);
+        dnsRecordRepository.save(assign_record);*/
+
+        assign_project.getDnsRecords().add(assign_record);
+        projectRepository.save(assign_project);
     }
 
     @Override
@@ -76,11 +102,11 @@ public class DnsRecordServiceImpl implements DnsRecordService {
         DnsRecord d_dnsrecord = dnsRecordRepository.findOne(id);
 
         if (d_dnsrecord != null){
-            Project updated_project = projectRepository.findOne(getDnsRecord(id).getProject().getId());
+            //Project updated_project = projectRepository.findOne(getDnsRecord(id).getProject().getId());
 
-            updated_project.getDnsRecords().remove(getDnsRecord(id));
+            //updated_project.getDnsRecords().remove(getDnsRecord(id));
 
-            projectRepository.save(updated_project);
+            //projectRepository.save(updated_project);
             dnsRecordRepository.delete(d_dnsrecord);
         }
     }

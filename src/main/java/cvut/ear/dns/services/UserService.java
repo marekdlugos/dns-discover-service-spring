@@ -1,5 +1,6 @@
 package cvut.ear.dns.services;
 
+import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.models.User;
 import cvut.ear.dns.models.Role;
@@ -18,7 +19,7 @@ public interface UserService extends UserDetailsService {
     void deleteUser(Long accId);
     List<User> getUsers();
     void asignRoleToUser(Role role, User user);
-    void assignProjectToUser(Project project, User user);
+    void assignParticipationToUser(Participation participation);
 
 
 }

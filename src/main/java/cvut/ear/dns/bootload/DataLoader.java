@@ -8,8 +8,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -19,6 +17,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private DnsRecordService dnsRecordService;
     private ProjectService projectService;
     private PasswordEncoder passwordEncoder;
+    private ParticipationService participationService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -31,28 +30,20 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Permission view_perm = new Permission("VIEW");
         Permission edit_perm = new Permission("EDIT");
-        Permission delete_perm = new Permission("DELETE");
-        Permission create_perm = new Permission("CREATE");
+        Permission admin_perm = new Permission("ADMIN");
 
         Role admin_role = new Role("ADMIN");
         Role user_role = new Role("USER");
 
         permissionService.addPermission(view_perm);
         permissionService.addPermission(edit_perm);
-        permissionService.addPermission(delete_perm);
-        permissionService.addPermission(create_perm);
+        permissionService.addPermission(admin_perm);
 
         roleService.addRole(admin_role);
         roleService.addRole(user_role);
 
         admin_acc.setEnabled(true);
         user_acc.setEnabled(true);
-
-        roleService.assignPermissionToRole(view_perm, user_role);
-        roleService.assignPermissionToRole(view_perm, admin_role);
-        roleService.assignPermissionToRole(edit_perm, admin_role);
-        roleService.assignPermissionToRole(delete_perm, admin_role);
-        roleService.assignPermissionToRole(create_perm, admin_role);
 
         userService.addUser(admin_acc);
         userService.addUser(user_acc);
@@ -61,26 +52,37 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Project google = new Project("Google", "Landing page");
         Project ms = new Project("Microsoft", "page");
+
         projectService.addProject(google);
         projectService.addProject(ms);
 
         DnsRecord adastra = new DnsRecord("adastra.cz", "adastra.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382);
         DnsRecord finance = new DnsRecord("xxx.cz", "xxx.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382);
-
-        adastra.setProject(ms);
-        finance.setProject(google);
-
-        List<DnsRecord> google_records = new ArrayList<>();
-        google_records.add(adastra);
-        google_records.add(finance);
-        google.setDnsRecords(google_records);
+        DnsRecord seznam = new DnsRecord("seznam.cz", "seznam.cz.", 86400, "MX", 21000, "adastra.com", "adastra", 21094210, 32000, 12000, 29001, 21382);
+        DnsRecord fb = new DnsRecord("fb.cz", "fb.cz.", 86400, "MX", 21000, "xxx.com", "xxx", 21094210, 32000, 12000, 29001, 21382);
 
         dnsRecordService.addDnsRecord(adastra);
         dnsRecordService.addDnsRecord(finance);
+        dnsRecordService.addDnsRecord(seznam);
+        dnsRecordService.addDnsRecord(fb);
 
-        userService.assignProjectToUser(google, user_acc);
-        userService.assignProjectToUser(google, admin_acc);
-        userService.assignProjectToUser(ms, user_acc);
+        // record have 1 project
+        // project have multiple records
+
+        dnsRecordService.assignProjectToDnsRecord(google, adastra);
+        dnsRecordService.assignProjectToDnsRecord(ms, finance);
+        dnsRecordService.assignProjectToDnsRecord(google, fb);
+        dnsRecordService.assignProjectToDnsRecord(ms, seznam);
+
+        Participation participation1 = new Participation(user_acc.getId(), google.getId(), admin_perm);
+        Participation participation2 = new Participation(user_acc.getId(), ms.getId(), view_perm);
+        Participation participation3 = new Participation(admin_acc.getId(), ms.getId(), admin_perm);
+
+        participationService.addParticipation(participation1);
+        participationService.addParticipation(participation2);
+        participationService.addParticipation(participation3);
+
+
     }
 
     @Autowired
@@ -113,4 +115,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Autowired
+    public void setParticipationService(ParticipationService participationService) {
+        this.participationService = participationService;
+    }
 }

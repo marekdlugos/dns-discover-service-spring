@@ -1,5 +1,7 @@
 package cvut.ear.dns.services;
 
+import cvut.ear.dns.models.DnsRecord;
+import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.Project;
 
 import java.util.List;
@@ -14,5 +16,6 @@ public interface ProjectService {
     void updateProject(Project project);
     void deleteProject(Long id);
     List<Project> getProjects();
+    void assignParticipationToProject(Participation participation);
 
 }

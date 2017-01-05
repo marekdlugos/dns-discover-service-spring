@@ -1,6 +1,9 @@
 package cvut.ear.dns.services.impl;
 
+import cvut.ear.dns.models.DnsRecord;
+import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.Project;
+import cvut.ear.dns.repository.DnsRecordRepository;
 import cvut.ear.dns.repository.ProjectRepository;
 import cvut.ear.dns.services.ProjectService;
 import org.slf4j.Logger;
@@ -8,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -21,6 +25,12 @@ public class ProjectServiceImpl implements ProjectService {
     static Logger LOG = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     private ProjectRepository projectRepository;
+    private DnsRecordRepository dnsRecordRepository;
+
+    @Autowired
+    public void setDnsRecordRepository(DnsRecordRepository dnsRecordRepository) {
+        this.dnsRecordRepository = dnsRecordRepository;
+    }
 
     @Autowired
     public void setProjectRepository(ProjectRepository projectRepository) {
@@ -50,6 +60,19 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectRepository.save(upated_project);
     }
+
+    @Override
+    public void assignParticipationToProject(Participation participation) {
+        LOG.info("Assign Participation: "+participation.getId()+"  to project: " +participation.getId().getProjectID());
+
+        Project assign_project = projectRepository.findOne(participation.getId().getProjectID());
+        if (assign_project == null){
+            throw new NoResultException("Project does not exist");
+        }
+        assign_project.getParticipations().add(participation);
+        projectRepository.save(assign_project);
+    }
+
 
     @Override
     public void deleteProject(Long id) {

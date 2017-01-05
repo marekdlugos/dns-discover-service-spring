@@ -58,11 +58,11 @@ public class ProjectController {
      * Create a new Project
      *
      * @param project   Project that you want to create
-     * @param UsersIDs  Ids of users added to project
      * @return          Return created project
      */
     @RequestMapping(value = "/projects", method = POST)
     public Project createProject(@RequestBody Project project) {
+        //TODO participation user-project-permissions
         log.debug("POST create a new Project, was called");
         projectService.addProject(project);
         return projectService.getProject(project.getId());

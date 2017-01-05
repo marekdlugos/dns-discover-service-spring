@@ -1,27 +1,12 @@
-/*
 package cvut.ear.dns.config;
 
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.servlet.annotation.WebServlet;
 
-
-*/
-/**
- * Created by Jakub on 30.12.2016.
- *//*
 
 @Configuration
-public class WebConfig {
+public class WebConfig extends WebMvcConfigurerAdapter{
 
-    @Bean
-    public ServletRegistrationBean (){
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
-        registrationBean.addUrlMappings("/console");
-        return registrationBean;
-    }
 }
 
-*/

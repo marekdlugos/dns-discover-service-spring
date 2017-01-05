@@ -6,6 +6,7 @@ import cvut.ear.dns.services.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,8 +65,8 @@ public class DnsRecordController {
     @RequestMapping(value = "/dnsrecords/{projectId}", method = POST)
     public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord, @PathVariable Long projectId) {
         DNSlog.debug("POST create a new DNS Record, was called");
-        dnsRecord.setProject(projectService.getProject(projectId));
         dnsRecordService.addDnsRecord(dnsRecord);
+        dnsRecordService.assignProjectToDnsRecord(projectService.getProject(projectId), dnsRecord);
         return dnsRecordService.getDnsRecord(dnsRecord.getId());
     }
 
@@ -80,8 +81,8 @@ public class DnsRecordController {
     public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord, @PathVariable Long projectId) {
         DNSlog.debug("PUT edit DNS Record, was called");
         dnsRecord.setId(dnsRecordId);
-        dnsRecord.setProject(projectService.getProject(projectId));
         dnsRecordService.updateDnsRecord(dnsRecord);
+        dnsRecordService.assignProjectToDnsRecord(projectService.getProject(projectId), dnsRecord);
         return dnsRecordService.getDnsRecord(dnsRecord.getId());
     }
 

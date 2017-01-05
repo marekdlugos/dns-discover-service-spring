@@ -1,6 +1,7 @@
 package cvut.ear.dns.services;
 
 import cvut.ear.dns.models.DnsRecord;
+import cvut.ear.dns.models.Project;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface DnsRecordService {
     void updateDnsRecord(DnsRecord dnsRecord);
     void deleteDnsRecord(Long id);
     List<DnsRecord> getDnsRecords();
+    void assignProjectToDnsRecord(Project project, DnsRecord dnsRecord);
 }
