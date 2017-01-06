@@ -2,11 +2,14 @@ package cvut.ear.dns.controllers;
 
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.models.User;
+import cvut.ear.dns.security.PermissionSecurityService;
+import cvut.ear.dns.services.PermissionService;
 import cvut.ear.dns.services.ProjectService;
 import cvut.ear.dns.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +23,7 @@ public class ProjectController {
     private static final Logger log = LoggerFactory.getLogger(ProjectController.class);
 
     private ProjectService projectService;
-    private UserService userService;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
     @Autowired
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
@@ -60,9 +58,9 @@ public class ProjectController {
      * @param project   Project that you want to create
      * @return          Return created project
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/projects", method = POST)
     public Project createProject(@RequestBody Project project) {
-        //TODO participation user-project-permissions
         log.debug("POST create a new Project, was called");
         projectService.addProject(project);
         return projectService.getProject(project.getId());
@@ -75,6 +73,7 @@ public class ProjectController {
      * @param project       Edited Project
      * @return              Return edited Project
      */
+    @PreAuthorize("@permissionSecurityService.hasPermissionToEditProject(authentication, #projectId)")
     @RequestMapping(value = "/projects/{projectId}", method = PUT)
     public Project editProject(@PathVariable Long projectId, @RequestBody Project project) {
         log.debug("PUT edit Project, was called");
@@ -88,6 +87,7 @@ public class ProjectController {
      *
      * @param projectId Identification of Project that you want to delete
      */
+    @PreAuthorize("@permissionSecurityService.hasPermissionToDeleteProject(authentication, #projectId)")
     @RequestMapping(value = "/projects/{projectId}", method = DELETE)
     public void deleteProject(@PathVariable Long projectId) {
         log.debug("DELETE Project, was called");

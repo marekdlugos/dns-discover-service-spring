@@ -62,6 +62,7 @@ public class DnsRecordController {
      * @param dnsRecord DNS Record you want to create
      * @return          Return created DNS Record
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/dnsrecords/{projectId}", method = POST)
     public DnsRecord createDnsRecord(@RequestBody DnsRecord dnsRecord, @PathVariable Long projectId) {
         DNSlog.debug("POST create a new DNS Record, was called");
@@ -77,6 +78,7 @@ public class DnsRecordController {
      * @param dnsRecord     Edited DNS Record
      * @return              Return edited Record
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}/project/{projectId}", method = PUT)
     public DnsRecord editDnsRecord(@PathVariable Long dnsRecordId, @RequestBody DnsRecord dnsRecord, @PathVariable Long projectId) {
         DNSlog.debug("PUT edit DNS Record, was called");
@@ -91,6 +93,7 @@ public class DnsRecordController {
      *
      * @param dnsRecordId Identification of Record you want to delete
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/dnsrecords/{dnsRecordId}", method = DELETE)
     public void deleteDnsRecord(@PathVariable Long dnsRecordId) {
         DNSlog.debug("DELETE DNS Record, was called");

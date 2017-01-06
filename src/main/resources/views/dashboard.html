@@ -43,7 +43,7 @@
                     <li><a href="settings.html">Settings</a></li>
                     <li><a href="help.html">Help</a></li>
                     <li>
-                        <form th:action="@{/logout}" method="post">
+                        <form action="/logout" method="post">
                             <input type="submit" value="Sign Out"/>
                         </form>
                     </li>
@@ -68,7 +68,7 @@
                 <!--</ul>-->
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header" th:inline="text">Welcome back [[${#httpServletRequest.remoteUser}]] !</h1>
+                <h1 class="page-header" >Welcome back !</h1>
 
             </div>
         </div>

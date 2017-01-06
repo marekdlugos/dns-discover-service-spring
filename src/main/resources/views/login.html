@@ -32,9 +32,12 @@
     <div class="container">
 
         <form class="login-form" action="/login" method="post" name="myForm">
+            <!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
             <div class="row">
                 <div class="col-md-6 centered">
+
                     <h1>DNS Discovery Service</h1>
+
                     <div class="form-group">
                         <label for="username">Username:</label>
                         <input type="text" name="username" class="form-control" id="username" autofocus="autofocus" placeholder="Username" ng-model="text" required="required"/>

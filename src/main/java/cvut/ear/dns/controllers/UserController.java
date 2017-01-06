@@ -5,6 +5,7 @@ import cvut.ear.dns.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class UserController {
      * @param user   New User object
      * @return          Return created User
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/users", method = POST)
     public User createUser(@RequestBody User user) {
         log.debug("POST create User, was called");
@@ -67,6 +69,7 @@ public class UserController {
      * @param user    Edited User
      * @return           Return edited User
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/users/{UserId}", method = PUT)
     public User editUser(@PathVariable Long UserId, @RequestBody User user) {
         log.debug("PUT edit User, was called");
@@ -75,6 +78,7 @@ public class UserController {
         return userService.getUser(user.getUsername());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/users/{UserId}", method = DELETE)
     public void deleteUser(@PathVariable Long UserId){
         log.debug("DELETE delete User, was called");

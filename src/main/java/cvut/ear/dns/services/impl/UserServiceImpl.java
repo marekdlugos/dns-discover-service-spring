@@ -7,6 +7,7 @@ import cvut.ear.dns.models.Role;
 import cvut.ear.dns.repository.ProjectRepository;
 import cvut.ear.dns.repository.UserRepository;
 import cvut.ear.dns.repository.RoleRepository;
+import cvut.ear.dns.services.ParticipationService;
 import cvut.ear.dns.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,14 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private ParticipationService participationService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    public void setParticipationService(ParticipationService participationService) {
+        this.participationService = participationService;
+    }
 
     @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
@@ -84,6 +90,13 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long accId) {
         LOG.info("Delete account by id: " + accId);
         User d_user = userRepository.findOne(accId);
+
+        List<Participation> all_participations = participationService.getParticiparions();
+        for (Participation all_participation : all_participations) {
+            if (all_participation.getUserID().equals(d_user.getId())) {
+                participationService.deleteParticiparion(all_participation.getId());
+            }
+        }
 
         if (d_user != null){
             userRepository.delete(accId);

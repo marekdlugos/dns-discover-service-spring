@@ -5,6 +5,7 @@ import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.repository.DnsRecordRepository;
 import cvut.ear.dns.repository.ProjectRepository;
+import cvut.ear.dns.services.ParticipationService;
 import cvut.ear.dns.services.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     private ProjectRepository projectRepository;
     private DnsRecordRepository dnsRecordRepository;
+    private ParticipationService participationService;
+
+    @Autowired
+    public void setParticipationService(ParticipationService participationService) {
+        this.participationService = participationService;
+    }
 
     @Autowired
     public void setDnsRecordRepository(DnsRecordRepository dnsRecordRepository) {
@@ -56,7 +63,8 @@ public class ProjectServiceImpl implements ProjectService {
 
         upated_project.setName(project.getName());
         upated_project.setDescription(project.getDescription());
-        upated_project.setDnsRecords(project.getDnsRecords());
+        //TODO update participations ??
+        upated_project.setParticipations(project.getParticipations());
 
         projectRepository.save(upated_project);
     }
@@ -78,6 +86,12 @@ public class ProjectServiceImpl implements ProjectService {
     public void deleteProject(Long id) {
         LOG.info("Delete project with id:" + id);
         Project d_project = projectRepository.findOne(id);
+        List<Participation> all_participations = participationService.getParticiparions();
+        for (Participation all_participation : all_participations) {
+            if (all_participation.getProjectID().equals(d_project.getId())) {
+                participationService.deleteParticiparion(all_participation.getId());
+            }
+        }
 
         if (d_project != null){
             projectRepository.delete(id);
