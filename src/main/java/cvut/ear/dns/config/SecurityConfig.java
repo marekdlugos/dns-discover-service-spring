@@ -23,16 +23,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/views/projects-new.html",
                         "/views/users-new.html", "/views/records-new.html").hasAuthority("ADMIN")
-                .antMatchers("/views/**").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic()
+            .formLogin()
+                .defaultSuccessUrl("/views/dashboard.html")
                 .and()
-                .csrf().disable();
+            .logout()
+                .and()
+            .httpBasic()
+                .and()
+            .csrf().disable();
     }
 
     @Bean
