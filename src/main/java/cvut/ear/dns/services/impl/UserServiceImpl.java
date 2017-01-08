@@ -1,12 +1,10 @@
 package cvut.ear.dns.services.impl;
 
 import cvut.ear.dns.models.Participation;
-import cvut.ear.dns.models.Project;
-import cvut.ear.dns.models.User;
 import cvut.ear.dns.models.Role;
-import cvut.ear.dns.repository.ProjectRepository;
-import cvut.ear.dns.repository.UserRepository;
+import cvut.ear.dns.models.User;
 import cvut.ear.dns.repository.RoleRepository;
+import cvut.ear.dns.repository.UserRepository;
 import cvut.ear.dns.services.ParticipationService;
 import cvut.ear.dns.services.UserService;
 import org.slf4j.Logger;

@@ -1,6 +1,5 @@
 package cvut.ear.dns.services;
 
-import cvut.ear.dns.models.Permission;
 import cvut.ear.dns.models.Role;
 
 import java.util.List;

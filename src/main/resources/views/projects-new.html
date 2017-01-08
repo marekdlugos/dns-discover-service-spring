@@ -27,7 +27,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-app="myApp" class="ng-cloak">
+<body  class="ng-cloak">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -44,7 +44,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="settings.html">Settings</a></li>
                     <li><a href="help.html">Help</a></li>
-                    <li><a href="#">Log out</a></li>
+                    <li><a href="/logout">Log out</a></li>
                 </ul>
             </div>
         </div>
@@ -86,31 +86,31 @@
                             </div>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-5" ng-controller="UserController as ctrl">
+                        <div class="col-md-5">
                             <h2>Add users to project</h2>
                             <div class="form-group">
                                 <div class="panel panel-default">
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th><!-- --></th>
                                             <th>User</th>
                                             <th>Role</th>
                                         </tr>
                                         </thead>
                                     </table>
+                                    <!-- <div ng-bind="pctrl.usersWithPermissions | json"></div> -->
                                     <div style="overflow-y:auto; height: 170px;">
                                         <table class="table">
-                                            <tbody ng-repeat="user in ctrl.users">
+                                            <tbody ng-repeat="user in pctrl.usersWithPermissions">
                                             <tr>
-                                                <td>
-                                                    <input type="checkbox" checklist-model="pctrl.participation.userID" checklist-value="user.id">
-                                                </td>
-                                                <td><span ng-bind="user.name"></span></td>
+                                                <td><span ng-bind="user.user.firstName + ' ' + user.user.lastName"></span></td>
                                                 <td>
                                                     <select class="form-control" id="role1" name="role">
-                                                       <!-- repeat role from roles -->
-                                                       <!-- <div ng-bind="role.name" checklist-model="pctrl.participation.roleID" checklist-value="role.id"></div>-->
+                                                        <option ng-selected="{{permission.id == user.permission.id}}"
+                                                                ng-repeat="permission in pctrl.permissions"
+                                                                value="{{ permission.id }}"
+                                                                ng-bind="permission.name">
+                                                        </option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -121,7 +121,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-actions floatRight">
-                                    <a href="projects.html" ng-click="pctrl.submit()" ng-disabled="myForm.$invalid" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> New project</a>
+                                    <a ng-click="pctrl.submit()" ng-disabled="myForm.$invalid" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> New project</a>
                                     <button type="button" ng-click="pctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
                                 </div>
                             </div>

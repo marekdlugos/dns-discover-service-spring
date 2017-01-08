@@ -1,9 +1,8 @@
 package cvut.ear.dns.services;
 
 import cvut.ear.dns.models.Participation;
-import cvut.ear.dns.models.Project;
-import cvut.ear.dns.models.User;
 import cvut.ear.dns.models.Role;
+import cvut.ear.dns.models.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;

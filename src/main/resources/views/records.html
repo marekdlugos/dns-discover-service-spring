@@ -27,7 +27,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-app="myApp" class="ng-cloak">
+<body  class="ng-cloak">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -44,7 +44,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="settings.html">Settings</a></li>
                     <li><a href="help.html">Help</a></li>
-                    <li><a href="#">Log out</a></li>
+                    <li><a href="/logout">Log out</a></li>
                 </ul>
             </div>
         </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProjectsController as pctrl">
             <div class="row">
-                <h1 class="page-header">Records <a href="records-new.html" id="new" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new record</a></h1>
+                <h1 class="page-header">Records <a  ng-if="rctrl.userIsAdmin === true" href="records-new.html" id="new" type="button" class="btn btn-success right"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add a new record</a></h1>
                 <div class="table-responsive">
                     <table class="table table-striped">
                             <thead>
@@ -78,8 +78,9 @@
                                 <td><span ng-bind="record.id"></span></td>
                                 <td><span ng-bind="record.zone"></span></td>
                                 <td><span ng-bind="record.host"></span></td>
-                                <td><a href="projects.html" ><span ng-bind="pctrl.projectName(record.project)"></span></a></td>
-                                <td>
+                                <td><a href="projects.html" ><span ng-bind="pctrl.projectName(record.projectID)"></span></a></td>
+                                <td ng-if="ctrl.userIsAdmin === false"></td>
+                                <td ng-if="rctrl.userIsAdmin === true">
                                     <button type="button" id="{{ record.id }}" ng-click="rctrl.edit(record.id)" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit</button>
                                     <button type="button" id="{{ record.zone }}" ng-click="rctrl.remove(record.id)"  class="btn btn-danger custom-width">Remove</button>
                                 </td>

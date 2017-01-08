@@ -1,5 +1,6 @@
-App.controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
+App.controller('UserController', ['$rootScope', '$scope', 'UserService', function($rootScope, $scope, UserService) {
     var self = this;
+    self.userIsAdmin = $rootScope.currentUser.roles.authority === 'ADMIN';
     self.user={id:null, name:'', email:'', password:''};
     self.users=[];
     self.editable = false;
@@ -97,8 +98,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
 }])
 
-.controller('RecordsController', ['$scope', 'RecordService', function($scope, RecordService) {
+.controller('RecordsController', ['$rootScope', '$scope', 'RecordService', function($rootScope, $scope, RecordService) {
     var self = this;
+    self.userIsAdmin = $rootScope.currentUser.roles.authority === 'ADMIN';
     self.record={
         id: '',
         zone: '',
@@ -108,7 +110,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
         mx_priority: '',
         data: '',
         resp_person: '',
-        serial: '', 
+        serial: '',
         refresh: '',
         retry: '',
         expire: '',
@@ -134,7 +136,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
         RecordService.createRecord(record, projectid)
             .then(
-                self.fetchAllRecords(),
+                function(response) { window.location.replace('records.html'); },
                 function(errResponse){
                     console.error('Error while creating record.' + errResponse);
                 }
@@ -145,7 +147,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
         RecordService.updateRecord(record, recordid, projectid)
             .then(
-                self.fetchAllRecords(),
+                function(response) { window.location.replace('records.html'); },
                 function(errResponse){
                     console.error('Error while updating record.' + errResponse);
                 }
@@ -164,8 +166,8 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
     self.fetchAllRecords();
 
-    self.submit = function() {
-        if(self.record.id===null){
+    self.submitForm = function() {
+        if(self.record.id===''){
             console.log('Saving New record', self.record);
             self.createRecord(self.record, self.projectid);
         }else{
@@ -218,8 +220,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
 }])
 
-.controller('ProjectsController', ['$scope', 'ProjectService',  function($scope, ProjectService) {
+.controller('ProjectsController', ['$rootScope', '$scope', 'ProjectService', 'UserService', 'ParticipationService',  function($rootScope, $scope, ProjectService, UserService, ParticipationService) {
     var self = this;
+    self.userIsAdmin = $rootScope.currentUser.roles.authority === 'ADMIN';
     self.project={
         id: '',
         name: '',
@@ -228,10 +231,62 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.participation={
         userID: '',
         projectID: '',
-        userRoleID: '',
-    }
+        permission: {
+            id: '',
+            name: '',
+        }
+    };
     self.projects=[];
     self.editable = false;
+
+    self.canEditProject = function(projectId) {
+        if (self.userIsAdmin) {
+            return true;
+        } else {
+            return $rootScope.currentUser.participations.some(function(project) {
+                return (project.projectID === projectId && (project.permissions.name === "EDIT" || project.permissions.name === "ADMIN"));
+            });
+        }
+    };
+
+    self.canRemoveProject = function(projectId) {
+        if (self.userIsAdmin) {
+            return true;
+        } else {
+            return $rootScope.currentUser.participations.some(function(project) {
+                return (project.projectID === projectId && project.permissions.name === "ADMIN");
+            });
+        }
+    };
+
+    self.permissions = [{
+        id: 1,
+        name: 'VIEW'
+    }, {
+        id: 2,
+        name: 'EDIT'
+    }, {
+        id: 3,
+        name: 'ADMIN'
+    }];
+
+    UserService.fetchAllUsers()
+        .then(
+            function(d) {
+                self.users = d;
+                self.usersWithPermissions = d.map(function(user) {
+                    return {
+                        user: user,
+                        permission: self.permissions[0]
+                    };
+                });
+            },
+            function(errResponse){
+                console.error('Error while fetching Currencies' + errResponse);
+            }
+        );
+
+
     $scope.selectedUsers = [ 1, 2 ]; // here add userID + projectID
 
     //console.log($scope.users);
@@ -252,14 +307,27 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
         ProjectService.createProject(record)
             .then(
-                self.fetchAllProjects,
-                function(errResponse){
-                    console.error('Error while creating project.', errResponse);
-                }
-            ),
-        ProjectService.createProject2(record)
-            .then(
-                self.fetchAllProjects,
+                function(response) {
+                    ParticipationService.saveParticipation({
+                        'participations': [
+                            {
+                                'projectID': response.project.id,
+                                'userID': 1,
+                                'permissions': {
+                                    'id': 3,
+                                    'name': 'ADMIN'
+                                }
+                            }, {
+                                'projectID': response.project.id,
+                                'userID': 2,
+                                'permissions': {
+                                    'id': 2,
+                                    'name': 'EDIT'
+                                }
+                            }
+                        ]
+                    });
+                },
                 function(errResponse){
                     console.error('Error while creating project.', errResponse);
                 }
@@ -270,7 +338,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
         ProjectService.updateProject(record, id)
             .then(
-                self.fetchAllProjects,
+                function(response) {
+                    ParticipationService.saveParticipation
+                },
                 function(errResponse){
                     console.error('Error while updating project.',  errResponse);
                 }
@@ -290,7 +360,7 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
     self.fetchAllProjects();
 
     self.submit = function() {
-        if(self.project.id===null){
+        if(self.project.id===''){
             console.log('Saving New project', self.project);
             self.createProject(self.project);
         }else{
@@ -338,8 +408,9 @@ App.controller('UserController', ['$scope', 'UserService', function($scope, User
 
 }])
 
-.controller('RoleController', ['$scope', 'RoleService',  function($scope, RoleService) {
+.controller('RoleController', ['$rootScope', '$scope', 'RoleService',  function($rootScope, $scope, RoleService) {
     var self = this;
+    self.userIsAdmin = $rootScope.currentUser.roles.authority === 'ADMIN';
     self.role={
         id: '',
         name: '',

@@ -52,6 +52,19 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
                 );
+        },
+
+        getCurrentUser: function(){
+            return $http.get('http://localhost:8080/principal')
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errResponse){
+                        console.error('Error while fetching current user');
+                        return $q.reject(errResponse);
+                    }
+                )
         }
 
     };
@@ -190,7 +203,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     };
 
 }])
-    
+
 .factory('RoleService', ['$http', '$q', function($http, $q){
 
         return {
@@ -208,5 +221,21 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                     );
             }
         }
-            
+
+    }])
+    .factory('ParticipationService', ['$http', '$q', function($http, $q){
+        return {
+            saveParticipation: function (data) {
+                return $http.post('http://localhost:8080/participation', data)
+                    .then(
+                        function (response) {
+                            return response.data;
+                        },
+                        function (errResponse) {
+                            console.error('Error while fetching roles');
+                            return $q.reject(errResponse);
+                        }
+                    );
+            }
+        }
     }]);

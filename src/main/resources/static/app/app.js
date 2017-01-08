@@ -19,3 +19,21 @@ App.directive('nxEqual', function() {
                 }
         };
 });
+
+
+(function() {
+        var initInjector = angular.injector(['ng']);
+        var $http = initInjector.get('$http');
+        $http.get('http://localhost:8080/principal')
+                .then(
+                        function (currentUserResponse) {
+                                App.run(function($rootScope) {
+                                        $rootScope.currentUser = currentUserResponse.data;
+                                });
+
+                                angular.element(document).ready(function() {
+                                        angular.bootstrap(document, ['myApp']);
+                                });
+                        }
+                );
+})();

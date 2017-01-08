@@ -1,11 +1,8 @@
 package cvut.ear.dns.models;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 
 @Entity

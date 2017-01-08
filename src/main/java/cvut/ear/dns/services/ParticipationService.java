@@ -2,7 +2,6 @@ package cvut.ear.dns.services;
 
 import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.ParticipationId;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

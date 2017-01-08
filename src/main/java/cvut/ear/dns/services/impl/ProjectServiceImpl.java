@@ -1,6 +1,5 @@
 package cvut.ear.dns.services.impl;
 
-import cvut.ear.dns.models.DnsRecord;
 import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.repository.DnsRecordRepository;

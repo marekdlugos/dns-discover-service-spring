@@ -3,7 +3,6 @@ package cvut.ear.dns.services.impl;
 import cvut.ear.dns.models.DnsRecord;
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.repository.DnsRecordRepository;
-import cvut.ear.dns.repository.PermissionRepository;
 import cvut.ear.dns.repository.ProjectRepository;
 import cvut.ear.dns.services.DnsRecordService;
 import org.slf4j.Logger;

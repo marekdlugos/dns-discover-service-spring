@@ -27,7 +27,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-app="myApp" class="ng-cloak">
+<body  class="ng-cloak">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -44,7 +44,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="settings.html">Settings</a></li>
                     <li><a href="help.html">Help</a></li>
-                    <li><a href="#">Log out</a></li>
+                    <li><a href="/logout">Log out</a></li>
                 </ul>
             </div>
         </div>
@@ -174,7 +174,7 @@
                                     </select>
                                 </div>
                                 <div class="form-actions floatRight">
-                                    <a href="records.html" ng-click="rctrl.submit()" id="add" ng-disabled="myForm.$invalid" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add record</a>
+                                    <a ng-click="rctrl.submitForm()" id="add" ng-disabled="myForm.$invalid" class="btn btn-primary btn-sm"><span class="glyphicons glyphicon glyphicon-plus" aria-hidden="true"></span> Add record</a>
                                     <button type="button" ng-click="rctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>
                                 </div>
                             </div>

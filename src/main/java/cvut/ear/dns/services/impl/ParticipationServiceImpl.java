@@ -2,7 +2,7 @@ package cvut.ear.dns.services.impl;
 
 import cvut.ear.dns.models.Participation;
 import cvut.ear.dns.models.ParticipationId;
-import cvut.ear.dns.repository.*;
+import cvut.ear.dns.repository.ParticipationRepository;
 import cvut.ear.dns.services.ParticipationService;
 import cvut.ear.dns.services.ProjectService;
 import cvut.ear.dns.services.UserService;
