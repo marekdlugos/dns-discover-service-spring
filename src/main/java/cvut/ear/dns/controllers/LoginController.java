@@ -25,16 +25,15 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login() {
-        //TODO security
         return "login";
     }
 
 
     @RequestMapping(value = "/principal", method = RequestMethod.GET)
     @ResponseBody
-    public Long currentUser(HttpServletRequest request) {
+    public User currentUser(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         User currentUser = userRepository.findByUsername(principal.getName());
-        return currentUser.getId();
+        return currentUser;
     }
 }

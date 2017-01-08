@@ -33,9 +33,9 @@ public class DnsRecord{
     private int expire;
     private int minimum;
 
-/*    @ManyToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
-    private Project project;*/
+    private Long projectID;
+
 
     /**
      * DNS Record Constructor
@@ -177,11 +177,12 @@ public class DnsRecord{
         this.minimum = minimum;
     }
 
-/*    public Project getProject() {
-        return project;
+    public Long getProjectID() {
+        return projectID;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }*/
+    public void setProjectID(Long projectID) {
+        this.projectID = projectID;
+    }
+
 }

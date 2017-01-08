@@ -88,8 +88,8 @@ public class DnsRecordServiceImpl implements DnsRecordService {
             throw new NoResultException("DnsRecord does not exist");
         }
 
-        /*assign_record.setProject(assign_project);
-        dnsRecordRepository.save(assign_record);*/
+        assign_record.setProjectID(assign_project.getId());
+        dnsRecordRepository.save(assign_record);
 
         assign_project.getDnsRecords().add(assign_record);
         projectRepository.save(assign_project);
@@ -102,11 +102,11 @@ public class DnsRecordServiceImpl implements DnsRecordService {
         DnsRecord d_dnsrecord = dnsRecordRepository.findOne(id);
 
         if (d_dnsrecord != null){
-            //Project updated_project = projectRepository.findOne(getDnsRecord(id).getProject().getId());
+            Project updated_project = projectRepository.findOne(getDnsRecord(id).getProjectID());
 
-            //updated_project.getDnsRecords().remove(getDnsRecord(id));
+            updated_project.getDnsRecords().remove(getDnsRecord(id));
 
-            //projectRepository.save(updated_project);
+            projectRepository.save(updated_project);
             dnsRecordRepository.delete(d_dnsrecord);
         }
     }
