@@ -73,7 +73,7 @@ public class ProjectController {
      * @param project       Edited Project
      * @return              Return edited Project
      */
-    @PreAuthorize("@permissionSecurityService.hasPermissionToEditProject(authentication, #projectId)")
+    @PreAuthorize("@permissionSecurityService.hasPermissionToEditProject(#projectId)")
     @RequestMapping(value = "/projects/{projectId}", method = PUT)
     public Project editProject(@PathVariable Long projectId, @RequestBody Project project) {
         log.debug("PUT edit Project, was called");

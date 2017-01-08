@@ -40,8 +40,12 @@ public class ParticipationServiceImpl implements ParticipationService {
     @Override
     public void addParticipation(Participation participation) {
         LOG.info("Creating participation (userID-projectID-permissions): "
-                +participation.getId().getUserID()+"-"+participation.getId().getProjectID()+"-"
+                +participation.getUserID()+"-"+participation.getProjectID()+"-"
                 +participation.getPermissions().getName());
+        if (participation.getId() == null){
+            ParticipationId participationId = new ParticipationId(participation.getUserID(), participation.getProjectID());
+            participation.setId(participationId);
+        }
         participationRepository.save(participation);
 
         //userService.assignParticipationToUser(participation);

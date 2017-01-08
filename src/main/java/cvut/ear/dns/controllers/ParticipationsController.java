@@ -1,6 +1,8 @@
 package cvut.ear.dns.controllers;
 
 import cvut.ear.dns.models.Participation;
+import cvut.ear.dns.models.ParticipationWrapper;
+import cvut.ear.dns.models.Permission;
 import cvut.ear.dns.models.Project;
 import cvut.ear.dns.services.ParticipationService;
 import org.slf4j.Logger;
@@ -10,6 +12,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -24,11 +29,12 @@ public class ParticipationsController {
         this.participationService = participationService;
     }
 
-    @PreAuthorize("@permissionSecurityService.hasPermissionToEditProject(#projectId)")
+    //@PreAuthorize("@permissionSecurityService.hasPermissionToEditProject(#wrapper.getParticipations().get(0).getProjectID())")
     @RequestMapping(value = "/participation", method = POST)
-    public void createProject(@RequestBody Participation participation) {
-        //TODO participation user-project-permissions
+    public void createProject(@RequestBody ParticipationWrapper wrapper) {
         log.debug("POST create a new participations, was called");
-        participationService.addParticipation(participation);
+        for(Participation participation : wrapper.getParticipations()){
+            participationService.addParticipation(participation);
+        }
     }
 }
